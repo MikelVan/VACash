@@ -3,4 +3,6 @@
     <string name="emailLabel">Email</string>
     <string name="passwordLabel">Password</string>
     <string name="logInLabel">Log In</string>
+    <string name="resetPasswordLabel"><u>Reset Password</u></string>
+    <string name="createAccountLabel"><u>Create Account</u></string>
 </resources>
