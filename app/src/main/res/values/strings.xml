@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">VA Cash</string>
+    <string name="emailLabel">Email</string>
+    <string name="passwordLabel">Password</string>
+    <string name="logInLabel">Log In</string>
 </resources>
