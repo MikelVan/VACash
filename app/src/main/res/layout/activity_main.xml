@@ -24,6 +24,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
         <TextView
             android:id="@+id/appName"
             android:layout_width="wrap_content"
@@ -51,15 +52,15 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:background="@drawable/edit_text_border"
             android:ems="10"
             android:hint="Input Email"
             android:inputType="textEmailAddress"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="12dp"
             android:textColor="@color/white"
             android:textColorHint="@color/text_disabled"
             android:textSize="16sp"
-            android:background="@drawable/edit_text_border"
-            android:paddingVertical="12dp"
-            android:paddingHorizontal="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/emailLabel" />
@@ -79,15 +80,15 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:background="@drawable/edit_text_border"
             android:ems="10"
             android:hint="Input Password"
             android:inputType="textPassword"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="12dp"
             android:textColor="@color/white"
             android:textColorHint="@color/text_disabled"
             android:textSize="16sp"
-            android:background="@drawable/edit_text_border"
-            android:paddingVertical="12dp"
-            android:paddingHorizontal="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/passwordLabel" />
@@ -108,10 +109,10 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:background="@drawable/button_style"
+            android:paddingVertical="10dp"
             android:text="@string/logInLabel"
             android:textSize="18sp"
-            android:paddingVertical="10dp"
-            android:background="@drawable/button_style"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/errorMessage" />
