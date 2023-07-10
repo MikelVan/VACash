@@ -2,6 +2,7 @@ package com.vacash.android;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
@@ -52,6 +53,9 @@ public class LoginPage extends AppCompatActivity {
                     errorMsg.setVisibility(View.VISIBLE);
                 } else {
                     errorMsg.setVisibility(View.INVISIBLE);
+
+                    Intent homeActivity = new Intent(LoginPage.this, HomePage.class);
+                    startActivity(homeActivity);
                     Toast.makeText(LoginPage.this, "Berhasil", Toast.LENGTH_SHORT).show();
                 }
             }
