@@ -2,6 +2,7 @@ package com.vacash.android;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
@@ -10,14 +11,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 public class LoginPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login_page);
 
         // setting app name text color
         TextView appName =  findViewById(R.id.appName);
@@ -54,6 +53,9 @@ public class LoginPage extends AppCompatActivity {
                     errorMsg.setVisibility(View.VISIBLE);
                 } else {
                     errorMsg.setVisibility(View.INVISIBLE);
+
+                    Intent homeActivity = new Intent(LoginPage.this, HomePage.class);
+                    startActivity(homeActivity);
                     Toast.makeText(LoginPage.this, "Berhasil", Toast.LENGTH_SHORT).show();
                 }
             }
