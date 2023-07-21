@@ -3,6 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="bg_primary">#282828</color>
+    <color name="bg_toolbar">#323232</color>
     <color name="text_primary">#8453D5</color>
     <color name="text_secondary">#A479EB</color>
     <color name="text_ternary">#8B54E7</color>

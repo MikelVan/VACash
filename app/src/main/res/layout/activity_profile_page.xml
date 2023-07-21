@@ -11,7 +11,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="@color/bg_toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,7 +20,6 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:contentDescription="Vertical Scroll"
-        android:overScrollMode="always"
         android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +32,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent" >
 
             <TextView
                 android:id="@+id/profile"
@@ -43,7 +42,7 @@
                 android:text="Profile"
                 android:textColor="@color/white"
                 android:textSize="24sp"
-                android:textStyle="bold"
+                android:fontFamily="@font/poppins_semibold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -76,6 +75,7 @@
                     android:text="Username"
                     android:textColor="@color/white"
                     android:textSize="16sp"
+                    android:fontFamily="@font/poppins"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -87,12 +87,13 @@
                     android:background="@drawable/edit_text_border"
                     android:ems="10"
                     android:focusable="false"
-                    android:hint="Roberto Anna"
+                    android:text="Roberto Anna"
                     android:inputType="none"
                     android:paddingHorizontal="20dp"
                     android:paddingVertical="12dp"
-                    android:textColorHint="@color/white"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
+                    android:fontFamily="@font/poppins"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/usernameLabel" />
@@ -105,6 +106,7 @@
                     android:text="Email"
                     android:textColor="@color/white"
                     android:textSize="16sp"
+                    android:fontFamily="@font/poppins"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/usernameField" />
 
@@ -116,15 +118,17 @@
                     android:background="@drawable/edit_text_border"
                     android:ems="10"
                     android:focusable="false"
-                    android:hint="email@gmail.com"
+                    android:text="email@gmail.com"
                     android:inputType="textEmailAddress"
                     android:paddingHorizontal="20dp"
                     android:paddingVertical="12dp"
-                    android:textColorHint="@color/white"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
+                    android:fontFamily="@font/poppins"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/emailLabel" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View
@@ -142,8 +146,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line1">
@@ -155,7 +157,7 @@
                     android:text="Top Up My Gems"
                     android:textColor="@color/white"
                     android:textSize="24sp"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/poppins_semibold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -167,6 +169,7 @@
                     android:text="Amount"
                     android:textColor="@color/white"
                     android:textSize="16sp"
+                    android:fontFamily="@font/poppins"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/topUp" />
 
@@ -184,6 +187,7 @@
                     android:textColor="@color/white"
                     android:textColorHint="@color/text_disabled"
                     android:textSize="16sp"
+                    android:fontFamily="@font/poppins"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/amountLabel" />
@@ -196,10 +200,11 @@
                     android:text="Error"
                     android:textColor="@color/text_danger"
                     android:visibility="invisible"
+                    android:fontFamily="@font/poppins"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/amountField" />
 
-                <android.widget.Button
+                <Button
                     android:id="@+id/topUpBtn"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
@@ -209,6 +214,8 @@
                     android:text="Top Up"
                     android:textSize="18sp"
                     android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:fontFamily="@font/poppins_semibold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/errorMessage" />
@@ -239,10 +246,10 @@
                     android:id="@+id/purchaseHistory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Top Up My Gems"
+                    android:text="Purchase History"
                     android:textColor="@color/white"
                     android:textSize="24sp"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/poppins_semibold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

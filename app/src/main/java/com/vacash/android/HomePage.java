@@ -12,6 +12,8 @@ import androidx.appcompat.widget.Toolbar;
 
 public class HomePage extends AppCompatActivity {
 
+    User user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +21,9 @@ public class HomePage extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Intent loginActivity = getIntent();
+        user = loginActivity.getParcelableExtra("userData");
     }
 
     @Override
@@ -33,6 +38,7 @@ public class HomePage extends AppCompatActivity {
 
         if(id == R.id.profile){
             Intent profileActivity = new Intent(HomePage.this, ProfilePage.class);
+            profileActivity.putExtra("userData", user);
             startActivity(profileActivity);
         } else if (id == R.id.logout) {
             Intent loginActivity = new Intent(HomePage.this, LoginPage.class);

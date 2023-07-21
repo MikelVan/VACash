@@ -10,11 +10,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProfilePage extends AppCompatActivity {
+
+    User user;
+
+    EditText usernameField, emailField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +28,15 @@ public class ProfilePage extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Intent previousActivity = getIntent();
+        user = previousActivity.getParcelableExtra("userData");
+
+        usernameField = findViewById(R.id.usernameField);
+        emailField = findViewById(R.id.emailField);
+
+        usernameField.setText(user.getUsername());
+        emailField.setText(user.getEmail());
 
         List<PurchaseHistory> purchaseHistories = new ArrayList<>();
         purchaseHistories.add(new PurchaseHistory("Genshin Impact", "60 Genesis Crystal", 1, 16500));
@@ -47,6 +61,7 @@ public class ProfilePage extends AppCompatActivity {
 
         if(id == R.id.profile){
             Intent profileActivity = new Intent(ProfilePage.this, ProfilePage.class);
+            profileActivity.putExtra("userData", user);
             startActivity(profileActivity);
         } else if (id == R.id.logout) {
             Intent loginActivity = new Intent(ProfilePage.this, LoginPage.class);

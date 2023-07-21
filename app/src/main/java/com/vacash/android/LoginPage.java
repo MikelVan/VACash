@@ -4,12 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginPage extends AppCompatActivity {
 
@@ -55,8 +59,16 @@ public class LoginPage extends AppCompatActivity {
                     errorMsg.setVisibility(View.INVISIBLE);
 
                     Intent homeActivity = new Intent(LoginPage.this, HomePage.class);
+
+                    String username = email.substring(0, email.indexOf('@'));
+                    Integer balance = 0;
+                    ArrayList<PurchaseHistory> purchaseHistories = new ArrayList<>();
+
+                    User user = new User(username, email, balance, purchaseHistories);
+                    homeActivity.putExtra("userData", user);
+
                     startActivity(homeActivity);
-                    Toast.makeText(LoginPage.this, "Berhasil", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginPage.this, "Welcome " + user.getUsername(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

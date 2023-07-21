@@ -1,19 +1,55 @@
 package com.vacash.android;
 
-import java.util.List;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class User {
+import androidx.annotation.NonNull;
+
+import java.util.ArrayList;
+
+public class User implements Parcelable {
 
     private String username;
     private String email;
     private Integer balance;
-    private List<PurchaseHistory> purchaseHistories;
+    private ArrayList<PurchaseHistory> purchaseHistories;
 
-    public User(String username, String email, Integer balance, List<PurchaseHistory> purchaseHistories) {
+    public User(String username, String email, Integer balance, ArrayList<PurchaseHistory> purchaseHistories) {
         this.username = username;
         this.email = email;
         this.balance = balance;
         this.purchaseHistories = purchaseHistories;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(username);
+        dest.writeString(email);
+        dest.writeInt(balance);
+        dest.writeList(purchaseHistories);
+    }
+
+    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
+
+    private User(Parcel in) {
+        username = in.readString();
+        email = in.readString();
+        balance = in.readInt();
+        purchaseHistories = new ArrayList<>();
+        in.readList(purchaseHistories, purchaseHistories.getClass().getClassLoader());
     }
 
     public String getUsername() {
@@ -40,11 +76,11 @@ public class User {
         this.balance = balance;
     }
 
-    public List<PurchaseHistory> getPurchaseHistories() {
+    public ArrayList<PurchaseHistory> getPurchaseHistories() {
         return purchaseHistories;
     }
 
-    public void setPurchaseHistories(List<PurchaseHistory> purchaseHistories) {
+    public void setPurchaseHistories(ArrayList<PurchaseHistory> purchaseHistories) {
         this.purchaseHistories = purchaseHistories;
     }
 }
