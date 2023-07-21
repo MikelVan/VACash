@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.text.Html;
 import android.view.View;
 import android.widget.Button;
@@ -13,9 +12,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class LoginPage extends AppCompatActivity {
+
+    public void showError(TextView errorView){
+        errorView.animate().alpha(1.0f).setDuration(250);
+    }
+
+    public void hideError(TextView errorView){
+        errorView.animate().alpha(0.0f).setDuration(250);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +37,9 @@ public class LoginPage extends AppCompatActivity {
         EditText passwordField = findViewById(R.id.passwordField);
         Button logInBtn = findViewById(R.id.logInBtn);
         TextView errorMsg = findViewById(R.id.errorMessage);
+
+        hideError(errorMsg);
+
         logInBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -39,25 +48,23 @@ public class LoginPage extends AppCompatActivity {
 
                 if(email.isEmpty()){
                     errorMsg.setText("* Email cannot be empty.");
-                    errorMsg.setVisibility(View.VISIBLE);
+                    showError(errorMsg);
                 } else if (password.isEmpty()) {
                     errorMsg.setText("* Password cannot be empty.");
-                    errorMsg.setVisibility(View.VISIBLE);
+                    showError(errorMsg);
                 } else if (!email.endsWith(".com")) {
                     errorMsg.setText("* Email must contain \".com\".");
-                    errorMsg.setVisibility(View.VISIBLE);
+                    showError(errorMsg);
                 } else if (!email.contains("@")) {
                     errorMsg.setText("* Email must contain \"@\".");
-                    errorMsg.setVisibility(View.VISIBLE);
+                    showError(errorMsg);
                 } else if (email.indexOf("@") != email.lastIndexOf("@")) {
                     errorMsg.setText("* Email must contain only one \"@\".");
-                    errorMsg.setVisibility(View.VISIBLE);
+                    showError(errorMsg);
                 } else if (password.length() < 8) {
                     errorMsg.setText("* Password cannot be less than 8 characters.");
-                    errorMsg.setVisibility(View.VISIBLE);
+                    showError(errorMsg);
                 } else {
-                    errorMsg.setVisibility(View.INVISIBLE);
-
                     Intent homeActivity = new Intent(LoginPage.this, HomePage.class);
 
                     String username = email.substring(0, email.indexOf('@'));

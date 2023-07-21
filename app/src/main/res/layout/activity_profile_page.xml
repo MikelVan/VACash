@@ -199,7 +199,6 @@
                     android:layout_marginTop="10dp"
                     android:text="Error"
                     android:textColor="@color/text_danger"
-                    android:visibility="invisible"
                     android:fontFamily="@font/poppins"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/amountField" />
