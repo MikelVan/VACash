@@ -20,7 +20,7 @@ public class LoginPage extends AppCompatActivity {
 
         // setting app name text color
         TextView appName =  findViewById(R.id.appName);
-        appName.setText(Html.fromHtml("<b><font color='#8453D5'>V</font>" + "<font color='#A479EB'>A</font>" + "<font color='#FFFFFF'> Cash</font></b>"));
+        appName.setText(Html.fromHtml("<font color='#8453D5'>V</font>" + "<font color='#A479EB'>A</font>" + "<font color='#FFFFFF'> Cash</font>"));
 
         // validation
         EditText emailField = findViewById(R.id.emailField);
