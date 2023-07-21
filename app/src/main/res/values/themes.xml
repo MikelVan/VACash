@@ -6,4 +6,10 @@
     </style>
 
     <style name="Theme.VACash" parent="Base.Theme.VACash" />
+
+    <style name="circle_image_view" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+        <item name="backgroundOverlayColorAlpha">12</item>
+    </style>
 </resources>
