@@ -199,16 +199,16 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/amountField" />
 
-                <Button
+                <android.widget.Button
                     android:id="@+id/topUpBtn"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/bg_button"
-                    android:backgroundTintMode="screen"
                     android:paddingVertical="10dp"
                     android:text="Top Up"
                     android:textSize="18sp"
+                    android:textColor="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/errorMessage" />
