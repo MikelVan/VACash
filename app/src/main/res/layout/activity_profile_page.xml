@@ -57,7 +57,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profile"
                 app:shapeAppearanceOverlay="@style/circle_image_view"
-                app:srcCompat="@drawable/applogo_nontransparent" />
+                app:srcCompat="@drawable/profile_picture" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/profileSection"
