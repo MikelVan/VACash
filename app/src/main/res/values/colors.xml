@@ -11,4 +11,6 @@
     <color name="text_ternary">#CAA9FF</color>
     <color name="text_danger">#D90022</color>
     <color name="text_disabled">#797979</color>
+
+    <color name="bg_navbar">#323232</color>
 </resources>

@@ -23,7 +23,6 @@
             android:text="Game Name"
             android:textSize="12sp"
             android:textColor="@color/white"
-            android:fontFamily="@font/poppins_bold"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
 
@@ -34,7 +33,6 @@
             android:text="Item Name"
             android:textSize="12sp"
             android:textColor="@color/white"
-            android:fontFamily="@font/poppins"
             app:layout_constraintTop_toBottomOf="@+id/gameName"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -42,13 +40,12 @@
             android:id="@+id/itemQty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
             android:text="Qty"
             android:textSize="12sp"
             android:textColor="@color/white"
-            android:fontFamily="@font/poppins"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/itemName"
-            app:layout_constraintEnd_toStartOf="@id/totalPrice"/>
+            app:layout_constraintStart_toEndOf="@+id/itemName"/>
 
         <TextView
             android:id="@+id/totalPrice"
@@ -58,9 +55,8 @@
             android:text="Rp. xxx.xxx"
             android:textSize="12sp"
             android:textColor="@color/white"
-            android:fontFamily="@font/poppins"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintStart_toEndOf="@+id/itemQty"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

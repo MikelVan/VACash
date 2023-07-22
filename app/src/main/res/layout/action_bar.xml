@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/bg_navbar">
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+        <ImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="15dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/applogo"
+            android:contentDescription="logo"
+            android:id="@+id/appLogoActionBar">
+        </ImageView>
+
+
+        <RelativeLayout
+            android:id="@+id/balance"
+            android:layout_width="130dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="120dp"
+            android:layout_marginEnd="15dp"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/ppActionBar"
+            android:layout_toEndOf="@+id/appLogoActionBar"
+            android:background="@drawable/balance_border">
+
+            <TextView
+                android:id="@+id/IDR"
+                android:layout_width="30dp"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/poppins_bold"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="IDR"
+                android:textColor="@color/text_primary"
+                android:textSize="10sp">
+            </TextView>
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="0dp"
+                android:layout_toEndOf="@+id/IDR"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:fontFamily="@font/poppins"
+                android:paddingRight="10dp"
+                android:text="9.999.999.999.999"
+                android:textAlignment="textEnd"
+                android:textColor="@color/white"
+                android:textSize="10sp">
+            </TextView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginEnd="15dp"
+            android:scaleType="centerCrop"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/pp_border"
+            android:id="@+id/ppActionBar">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                app:shapeAppearanceOverlay="@style/circle_image_view"
+                app:srcCompat="@drawable/profile_picture"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true">
+            </com.google.android.material.imageview.ShapeableImageView>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>
