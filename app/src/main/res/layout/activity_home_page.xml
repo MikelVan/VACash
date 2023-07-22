@@ -7,7 +7,9 @@
     android:background="@color/bg_primary"
     tools:context=".HomePage">
 
-    <include layout="@layout/action_bar"/>
+    <include
+        layout="@layout/action_bar"
+        android:id="@+id/action_bar"/>
 
     <ScrollView
         android:id="@id/scrollableView"
