@@ -1,4 +1,4 @@
-package com.vacash.android;
+package com.vacash.android.models;
 
 public class PurchaseHistory {
 
