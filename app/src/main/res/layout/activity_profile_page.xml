@@ -9,6 +9,7 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
+        android:theme="@style/nav_menu_size"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/bg_toolbar"
@@ -87,7 +88,7 @@
                     android:background="@drawable/edit_text_border"
                     android:ems="10"
                     android:focusable="false"
-                    android:text="Roberto Anna"
+                    android:text="Silver Wolf"
                     android:inputType="none"
                     android:paddingHorizontal="20dp"
                     android:paddingVertical="12dp"
@@ -118,7 +119,7 @@
                     android:background="@drawable/edit_text_border"
                     android:ems="10"
                     android:focusable="false"
-                    android:text="email@gmail.com"
+                    android:text="silverwolf@gmail.com"
                     android:inputType="textEmailAddress"
                     android:paddingHorizontal="20dp"
                     android:paddingVertical="12dp"
@@ -154,12 +155,12 @@
                     android:id="@+id/topUp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Top Up My Gems"
+                    android:text="Top Up My Balance"
                     android:textColor="@color/white"
                     android:textSize="24sp"
                     android:fontFamily="@font/poppins_semibold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <TextView
                     android:id="@+id/amountLabel"
