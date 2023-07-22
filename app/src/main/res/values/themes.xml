@@ -1,9 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.VACash" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.VACash" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
     <style name="Theme.VACash" parent="Base.Theme.VACash" />
+
+    <style name="circle_image_view" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+        <item name="backgroundOverlayColorAlpha">12</item>
+    </style>
 </resources>

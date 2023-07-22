@@ -8,7 +8,7 @@
     tools:context=".LoginPage">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,6 +20,7 @@
             android:layout_width="130dp"
             android:layout_height="130dp"
             android:src="@drawable/applogo"
+            android:contentDescription="App Logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -32,7 +33,8 @@
             android:layout_marginTop="-30dp"
             android:text="@string/app_name"
             android:textColor="@color/text_primary"
-            android:textSize="35dp"
+            android:textSize="35sp"
+            android:fontFamily="@font/poppins_bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/appLogo" />
@@ -44,6 +46,7 @@
             android:layout_marginTop="25dp"
             android:text="@string/emailLabel"
             android:textColor="@color/white"
+            android:fontFamily="@font/poppins"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/appName" />
 
@@ -61,6 +64,7 @@
             android:textColor="@color/white"
             android:textColorHint="@color/text_disabled"
             android:textSize="16sp"
+            android:fontFamily="@font/poppins"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/emailLabel" />
@@ -72,6 +76,7 @@
             android:layout_marginTop="20dp"
             android:text="@string/passwordLabel"
             android:textColor="@color/white"
+            android:fontFamily="@font/poppins"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/emailField" />
 
@@ -89,6 +94,7 @@
             android:textColor="@color/white"
             android:textColorHint="@color/text_disabled"
             android:textSize="16sp"
+            android:fontFamily="@font/poppins"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/passwordLabel" />
@@ -100,7 +106,7 @@
             android:layout_marginTop="10dp"
             android:text="Error"
             android:textColor="@color/text_danger"
-            android:visibility="invisible"
+            android:fontFamily="@font/poppins"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/passwordField" />
 
@@ -109,10 +115,15 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@drawable/button_style"
             android:paddingVertical="10dp"
+            android:background="@drawable/bg_button"
+            android:backgroundTint="@color/text_primary"
+            android:backgroundTintMode="src_in"
             android:text="@string/logInLabel"
+            android:textColor="@color/white"
             android:textSize="18sp"
+            android:textAllCaps="false"
+            android:fontFamily="@font/poppins_semibold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/errorMessage" />
@@ -125,6 +136,7 @@
             android:layout_marginEnd="15dp"
             android:text="@string/resetPasswordLabel"
             android:textColor="@color/text_primary"
+            android:fontFamily="@font/poppins"
             app:layout_constraintEnd_toStartOf="@+id/divider"
             app:layout_constraintTop_toBottomOf="@+id/logInBtn" />
 
@@ -147,6 +159,7 @@
             android:layout_marginTop="10dp"
             android:text="@string/createAccountLabel"
             android:textColor="@color/text_primary"
+            android:fontFamily="@font/poppins"
             app:layout_constraintStart_toEndOf="@+id/divider"
             app:layout_constraintTop_toBottomOf="@+id/logInBtn" />
     </androidx.constraintlayout.widget.ConstraintLayout>
