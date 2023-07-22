@@ -9,10 +9,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager2.widget.ViewPager2;
+
+import com.google.android.material.tabs.TabLayout;
+import com.vacash.android.models.User;
 
 public class HomePage extends AppCompatActivity {
 
     User user;
+
+    TabLayout gamePlatformTab;
+    ViewPager2 gamePlatformView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

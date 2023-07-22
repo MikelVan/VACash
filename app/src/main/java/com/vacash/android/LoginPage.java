@@ -11,6 +11,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.vacash.android.models.PurchaseHistory;
+import com.vacash.android.models.User;
+
 import java.util.ArrayList;
 
 public class LoginPage extends AppCompatActivity {

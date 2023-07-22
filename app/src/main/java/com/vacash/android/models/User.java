@@ -1,4 +1,4 @@
-package com.vacash.android;
+package com.vacash.android.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;

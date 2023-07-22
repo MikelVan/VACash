@@ -13,15 +13,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
+
+import com.vacash.android.adapters.PurchaseHistoryAdapter;
+import com.vacash.android.models.PurchaseHistory;
+import com.vacash.android.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 public class ProfilePage extends AppCompatActivity {
 
     User user;
 
+    ScrollView scrollView;
     EditText usernameField, emailField, amountField;
     TextView errorMsg;
     Button topUpBtn;
@@ -56,11 +64,14 @@ public class ProfilePage extends AppCompatActivity {
         Intent previousActivity = getIntent();
         user = previousActivity.getParcelableExtra("userData");
 
+        scrollView = findViewById(R.id.scrollableView);
         usernameField = findViewById(R.id.usernameField);
         emailField = findViewById(R.id.emailField);
         amountField = findViewById(R.id.amountField);
         errorMsg = findViewById(R.id.errorMessage);
         topUpBtn = findViewById(R.id.topUpBtn);
+
+        OverScrollDecoratorHelper.setUpOverScroll(scrollView);
 
         usernameField.setText(user.getUsername());
         emailField.setText(user.getEmail());
@@ -98,7 +109,8 @@ public class ProfilePage extends AppCompatActivity {
 
         RecyclerView purchaseHistoryRecycleView = findViewById(R.id.purchaseHistoryRecycleView);
         purchaseHistoryRecycleView.setLayoutManager(new LinearLayoutManager(this));
-        purchaseHistoryRecycleView.setAdapter(new PurchaseHistoryAdapter(getApplicationContext(), purchaseHistories));
+        purchaseHistoryRecycleView.setAdapter(new PurchaseHistoryAdapter(
+                purchaseHistories));
     }
 
     @Override
