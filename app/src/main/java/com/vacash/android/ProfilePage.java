@@ -58,7 +58,7 @@ public class ProfilePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_page);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.action_bar);
         setSupportActionBar(toolbar);
 
         Intent previousActivity = getIntent();

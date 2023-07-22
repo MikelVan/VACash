@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:padding="12dp">
         <ImageView
             android:layout_width="45dp"
             android:layout_height="45dp"
@@ -47,14 +47,14 @@
             </TextView>
 
             <TextView
-                android:layout_width="100dp"
+                android:layout_width="110dp"
                 android:layout_height="25dp"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="0dp"
                 android:layout_toEndOf="@+id/IDR"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:fontFamily="@font/poppins"
+                android:fontFamily="@font/poppins_medium"
                 android:paddingRight="10dp"
                 android:text="9.999.999.999.999"
                 android:textAlignment="textEnd"
