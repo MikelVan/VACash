@@ -34,19 +34,43 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.tabs.TabLayout
-                android:id="@+id/gamePlatformTab"
+                android:id="@+id/gamePlatformTabLayout"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
+                android:contentDescription="Game Platform Tab"
+                app:tabTextColor="@color/white"
+                app:tabIndicatorGravity="stretch"
+                app:tabIndicatorColor="@color/text_secondary"
+                app:tabIndicator="@drawable/bg_game_platform_tab"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mobile"/>
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PC"/>
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Console"/>
+
+            </com.google.android.material.tabs.TabLayout>
 
             <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/gamePlatformViewPager"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/gamePlatformTab"/>
+                app:layout_constraintTop_toBottomOf="@id/gamePlatformTabLayout"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

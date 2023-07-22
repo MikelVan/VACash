@@ -2,10 +2,8 @@ package com.vacash.android.models;
 
 public class PurchaseHistory {
 
-    private String gameName;
-    private String itemName;
-    private Integer itemQty;
-    private Integer totalPrice;
+    private String gameName, itemName;
+    private Integer itemQty, totalPrice;
 
     public PurchaseHistory(String gameName, String itemName, Integer itemQty, Integer totalPrice) {
         this.gameName = gameName;

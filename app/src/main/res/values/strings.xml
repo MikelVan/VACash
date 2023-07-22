@@ -5,4 +5,6 @@
     <string name="logInLabel">Log In</string>
     <string name="resetPasswordLabel"><u>Reset Password</u></string>
     <string name="createAccountLabel"><u>Create Account</u></string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

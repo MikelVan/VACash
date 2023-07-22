@@ -12,14 +12,16 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
+import com.vacash.android.adapters.GamePlatformTabAdapter;
 import com.vacash.android.models.User;
 
 public class HomePage extends AppCompatActivity {
 
     User user;
 
-    TabLayout gamePlatformTab;
-    ViewPager2 gamePlatformView;
+    TabLayout gamePlatformTabLayout;
+    ViewPager2 gamePlatformViewPager;
+    GamePlatformTabAdapter gamePlatformTabAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,37 @@ public class HomePage extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        gamePlatformTabLayout = findViewById(R.id.gamePlatformTabLayout);
+        gamePlatformViewPager = findViewById(R.id.gamePlatformViewPager);
+        gamePlatformTabAdapter = new GamePlatformTabAdapter(getSupportFragmentManager(), getLifecycle());
+
+        gamePlatformViewPager.setAdapter(gamePlatformTabAdapter);
+
+        gamePlatformTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                gamePlatformViewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        gamePlatformViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                gamePlatformTabLayout.selectTab(gamePlatformTabLayout.getTabAt(position));
+            }
+        });
 
         Intent loginActivity = getIntent();
         user = loginActivity.getParcelableExtra("userData");
