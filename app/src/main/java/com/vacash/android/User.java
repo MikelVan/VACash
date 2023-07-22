@@ -76,6 +76,10 @@ public class User implements Parcelable {
         this.balance = balance;
     }
 
+    public void addBalance(Integer value) {
+        this.balance += value;
+    }
+
     public ArrayList<PurchaseHistory> getPurchaseHistories() {
         return purchaseHistories;
     }
