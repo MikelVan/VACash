@@ -3,10 +3,21 @@ package com.vacash.android;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.HorizontalScrollView;
+
+import com.vacash.android.adapters.GameAdapter;
+import com.vacash.android.adapters.PurchaseHistoryAdapter;
+import com.vacash.android.models.Game;
+
+import java.util.ArrayList;
+
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,12 +64,28 @@ public class MobileTab extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_mobile_tab, container, false);
+
+        HorizontalScrollView scrollView = view.findViewById(R.id.scrollableView);
+        OverScrollDecoratorHelper.setUpOverScroll(scrollView);
+
+        ArrayList<Game> games= new ArrayList<>();
+        games.add(new Game(R.drawable.genshin_impact, "Genshin Impact", "Hoyoverse"));
+        games.add(new Game(R.drawable.honkai_star_rail, "Honkai Star Rail", "Hoyoverse"));
+        games.add(new Game(R.drawable.mobile_legends, "Mobile Legends", "Moonton"));
+        games.add(new Game(R.drawable.growtopia, "Growtopia", "Ubisoft"));
+        games.add(new Game(R.drawable.stumble_guys, "Stumble Guys", "Scopely"));
+
+        RecyclerView gameRecycleView = view.findViewById(R.id.gameRecycleView);
+        gameRecycleView.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false));
+        gameRecycleView.setAdapter(new GameAdapter(games));
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mobile_tab, container, false);
+        return view;
     }
 }

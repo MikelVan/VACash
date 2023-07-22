@@ -30,7 +30,9 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull GameAdapter.ViewHolder holder, int position) {
-
+        holder.gameLogo.setImageResource(games.get(position).getGameLogo());
+        holder.gameTitleView.setText(games.get(position).getGameTitle());
+        holder.gameDeveloperView.setText(games.get(position).getGameDeveloper());
     }
 
     @Override
@@ -46,7 +48,9 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
         public ViewHolder(@NonNull View gameView) {
             super(gameView);
 
-            gameLogo = gameView.findViewById();
+            gameLogo = gameView.findViewById(R.id.gameLogo);
+            gameTitleView = gameView.findViewById(R.id.gameTitle);
+            gameDeveloperView = gameView.findViewById(R.id.gameDeveloper);
         }
 
     }

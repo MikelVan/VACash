@@ -65,8 +65,9 @@
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/gamePlatformViewPager"
-                android:layout_width="350dp"
+                android:layout_width="370dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/gamePlatformTabLayout"

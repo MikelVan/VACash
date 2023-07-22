@@ -101,7 +101,7 @@ public class ProfilePage extends AppCompatActivity {
             }
         });
 
-        List<PurchaseHistory> purchaseHistories = new ArrayList<>();
+        ArrayList<PurchaseHistory> purchaseHistories = new ArrayList<>();
         purchaseHistories.add(new PurchaseHistory("Genshin Impact", "60 Genesis Crystal", 1, 16500));
         purchaseHistories.add(new PurchaseHistory("Genshin Impact", "60 Genesis Crystal", 1, 16500));
         purchaseHistories.add(new PurchaseHistory("Genshin Impact", "60 Genesis Crystal", 1, 16500));

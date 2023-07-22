@@ -35,6 +35,7 @@ public class HomePage extends AppCompatActivity {
         gamePlatformViewPager = findViewById(R.id.gamePlatformViewPager);
         gamePlatformTabAdapter = new GamePlatformTabAdapter(getSupportFragmentManager(), getLifecycle());
 
+        gamePlatformViewPager.setUserInputEnabled(false);
         gamePlatformViewPager.setAdapter(gamePlatformTabAdapter);
 
         gamePlatformTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
