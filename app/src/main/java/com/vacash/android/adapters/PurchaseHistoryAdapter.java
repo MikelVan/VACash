@@ -35,7 +35,7 @@ public class PurchaseHistoryAdapter extends RecyclerView.Adapter<PurchaseHistory
         String itemQtyText = "x" + purchaseHistories.get(position).getItemQty().toString();
         holder.itemQtyView.setText(itemQtyText);
 
-        String totalPriceText = "Rp. " + purchaseHistories.get(position).getTotalPrice().toString();
+        String totalPriceText = "IDR " + purchaseHistories.get(position).getTotalPrice().toString();
         holder.totalPriceView.setText(totalPriceText);
     }
 
