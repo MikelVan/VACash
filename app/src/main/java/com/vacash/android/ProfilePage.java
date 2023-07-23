@@ -11,8 +11,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -32,6 +37,12 @@ public class ProfilePage extends AppCompatActivity {
     EditText usernameField, emailField, amountField;
     TextView errorMsg;
     Button topUpBtn;
+
+
+    private RelativeLayout action_bar, dropdownMenu, ppHighlight, dark_overlay;
+    private LinearLayout dropdownList, checkProfileButton, logoutButton;
+    private ImageView homeIconActionBar;
+    private Animation slideDownAnimation, slideUpAnimation;
 
     public void showError(TextView errorView){
         errorView.animate().alpha(1.0f).setDuration(250);
@@ -57,6 +68,17 @@ public class ProfilePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_page);
 
+        action_bar = findViewById(R.id.action_bar);
+        dropdownMenu = findViewById(R.id.dropdownMenu);
+        dropdownList = findViewById(R.id.dropdownList);
+        ppHighlight = findViewById(R.id.ppHighlight);
+        dark_overlay = findViewById(R.id.dark_overlay);
+        checkProfileButton = findViewById(R.id.checkProfileButton);
+        logoutButton = findViewById(R.id.logoutButton);
+        homeIconActionBar = findViewById(R.id.homeIconActionBar);
+        slideDownAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slidedown);
+        slideUpAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup);
+
         Intent previousActivity = getIntent();
         user = previousActivity.getParcelableExtra("userData");
 
@@ -66,6 +88,57 @@ public class ProfilePage extends AppCompatActivity {
         amountField = findViewById(R.id.amountField);
         errorMsg = findViewById(R.id.errorMessage);
         topUpBtn = findViewById(R.id.topUpBtn);
+
+        dropdownMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                action_bar.bringToFront();
+                if (ppHighlight.getVisibility() == View.VISIBLE) {
+                    ppHighlight.setVisibility(View.INVISIBLE);
+                } else {
+                    ppHighlight.setVisibility(View.VISIBLE);
+                }
+
+                if (dropdownList.getVisibility() == View.VISIBLE) {
+                    dropdownList.startAnimation(slideUpAnimation);
+                    dropdownList.setVisibility(View.INVISIBLE);
+                } else {
+                    dropdownList.setVisibility(View.VISIBLE);
+                    dropdownList.startAnimation(slideDownAnimation);
+                }
+                if (dark_overlay.getVisibility() == View.VISIBLE) {
+                    dark_overlay.setVisibility(View.INVISIBLE);
+                } else {
+                    dark_overlay.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        checkProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent profileActivity = new Intent(ProfilePage.this, ProfilePage.class);
+                profileActivity.putExtra("userData", user);
+                startActivity(profileActivity);
+            }
+        });
+
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent loginActivity = new Intent(ProfilePage.this, LoginPage.class);
+                startActivity(loginActivity);
+            }
+        });
+
+        homeIconActionBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent homeActivity = new Intent(ProfilePage.this, HomePage.class);
+                homeActivity.putExtra("userData", user);
+                startActivity(homeActivity);
+            }
+        });
 
         OverScrollDecoratorHelper.setUpOverScroll(scrollView);
 

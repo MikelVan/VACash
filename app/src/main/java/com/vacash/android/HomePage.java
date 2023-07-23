@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -26,11 +27,9 @@ public class HomePage extends AppCompatActivity {
     Integer tab_id = 1;
     String tab_title = "Mobile";
     private ConstraintLayout gamePlatformTabLayout;
-    private RelativeLayout dropdownMenu, ppHighlight;
-    private LinearLayout dropdownList;
-    private RelativeLayout dark_overlay;
-    private LinearLayout checkProfileButton;
-    private LinearLayout logoutButton;
+    private RelativeLayout action_bar, dropdownMenu, ppHighlight, dark_overlay;
+    private LinearLayout dropdownList, checkProfileButton, logoutButton;
+    private ImageView appLogoActionBar;
     private Animation slideDownAnimation, slideUpAnimation;
 
     @Override
@@ -38,12 +37,14 @@ public class HomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
+        action_bar = findViewById(R.id.action_bar);
         dropdownMenu = findViewById(R.id.dropdownMenu);
         dropdownList = findViewById(R.id.dropdownList);
         ppHighlight = findViewById(R.id.ppHighlight);
         dark_overlay = findViewById(R.id.dark_overlay);
         checkProfileButton = findViewById(R.id.checkProfileButton);
         logoutButton = findViewById(R.id.logoutButton);
+        appLogoActionBar = findViewById(R.id.appLogoActionBar);
         slideDownAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slidedown);
         slideUpAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup);
 
@@ -53,6 +54,7 @@ public class HomePage extends AppCompatActivity {
         dropdownMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                action_bar.bringToFront();
                 if (ppHighlight.getVisibility() == View.VISIBLE) {
                     ppHighlight.setVisibility(View.INVISIBLE);
                 } else {
@@ -88,6 +90,14 @@ public class HomePage extends AppCompatActivity {
             public void onClick(View v) {
                 Intent loginActivity = new Intent(HomePage.this, LoginPage.class);
                 startActivity(loginActivity);
+            }
+        });
+
+        appLogoActionBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                startActivity(getIntent());
             }
         });
 

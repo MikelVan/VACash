@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".ItemPage">
 
-    <include layout="@layout/action_bar"/>
+    <include layout="@layout/action_bar_logo"/>
 
 
 
