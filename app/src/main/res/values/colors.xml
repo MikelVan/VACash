@@ -11,6 +11,8 @@
     <color name="text_ternary">#CAA9FF</color>
     <color name="text_danger">#D90022</color>
     <color name="text_disabled">#797979</color>
+    <color name="games_developer">#A9A9A9</color>
+    <color name="games_category">#BC93FF</color>
 
     <color name="bg_navbar">#323232</color>
     <color name="dark_overlay">#66000000</color>
