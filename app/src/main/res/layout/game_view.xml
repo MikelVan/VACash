@@ -10,8 +10,8 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/gameLogo"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
         android:scaleType="centerCrop"
         android:src="@drawable/applogo_nontransparent"
         app:shapeAppearanceOverlay="@style/rounded_image_view" />
