@@ -96,8 +96,9 @@ public class HomePage extends AppCompatActivity {
         appLogoActionBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-                startActivity(getIntent());
+                Intent homeActivity = new Intent(HomePage.this, HomePage.class);
+                homeActivity.putExtra("userData", user);
+                startActivity(homeActivity);
             }
         });
 
