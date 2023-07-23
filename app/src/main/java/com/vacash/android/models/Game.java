@@ -1,6 +1,4 @@
-package com.vacash.android.models;
-
-public class Game {
+package com.vacash.android.models;public class Game {
 
     private Integer gameLogo;
     private String gameTitle, gameDeveloper;
@@ -34,4 +32,5 @@ public class Game {
     public void setGameDeveloper(String gameDeveloper) {
         this.gameDeveloper = gameDeveloper;
     }
+
 }
