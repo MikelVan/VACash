@@ -28,7 +28,6 @@ import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 public class ProfilePage extends AppCompatActivity {
 
     User user;
-
     ScrollView scrollView;
     EditText usernameField, emailField, amountField;
     TextView errorMsg;

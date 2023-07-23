@@ -4,7 +4,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="bg_primary">#282828</color>
     <color name="bg_secondary">#484848</color>
-    <color name="bg_toolbar">#323232</color>
     <color name="bg_purchase_history">#8B54E7</color>
     <color name="bg_game">#7F000000</color>
     <color name="text_primary">#8453D5</color>
@@ -14,5 +13,6 @@
     <color name="text_disabled">#797979</color>
 
     <color name="bg_navbar">#323232</color>
+    <color name="dark_overlay">#66000000</color>
     <color name="navbar_border">#726576</color>
 </resources>
