@@ -7,6 +7,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager2.widget.ViewPager2;
@@ -23,13 +28,20 @@ public class HomePage extends AppCompatActivity {
     ViewPager2 gamePlatformViewPager;
     GamePlatformTabAdapter gamePlatformTabAdapter;
 
+    private RelativeLayout dropdownMenu, ppHighlight;
+    private LinearLayout dropdownList;
+    private Animation slideDownAnimation, slideUpAnimation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-//        Toolbar toolbar = findViewById(R.id.action_bar);
-//        setSupportActionBar(toolbar);
+        dropdownMenu = findViewById(R.id.dropdownMenu);
+        dropdownList = findViewById(R.id.dropdownList);
+        ppHighlight = findViewById(R.id.ppHighlight);
+        slideDownAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slidedown);
+        slideUpAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup);
 
         gamePlatformTabLayout = findViewById(R.id.gamePlatformTabLayout);
         gamePlatformViewPager = findViewById(R.id.gamePlatformViewPager);
@@ -38,6 +50,23 @@ public class HomePage extends AppCompatActivity {
         gamePlatformViewPager.setUserInputEnabled(false);
         gamePlatformViewPager.setAdapter(gamePlatformTabAdapter);
 
+        dropdownMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ppHighlight.getVisibility() == View.VISIBLE) {
+                    ppHighlight.setVisibility(View.INVISIBLE);
+                } else {
+                    ppHighlight.setVisibility(View.VISIBLE);
+                }
+                if (dropdownList.getVisibility() == View.VISIBLE) {
+                    dropdownList.startAnimation(slideUpAnimation);
+                    dropdownList.setVisibility(View.INVISIBLE);
+                } else {
+                    dropdownList.setVisibility(View.VISIBLE);
+                    dropdownList.startAnimation(slideDownAnimation);
+                }
+            }
+        });
         gamePlatformTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -67,25 +96,4 @@ public class HomePage extends AppCompatActivity {
         user = loginActivity.getParcelableExtra("userData");
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.action_bar_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        Integer id = item.getItemId();
-
-        if(id == R.id.profile){
-            Intent profileActivity = new Intent(HomePage.this, ProfilePage.class);
-            profileActivity.putExtra("userData", user);
-            startActivity(profileActivity);
-        } else if (id == R.id.logout) {
-            Intent loginActivity = new Intent(HomePage.this, LoginPage.class);
-            startActivity(loginActivity);
-        }
-
-        return true;
-    }
 }

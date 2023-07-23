@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/bg_navbar">
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="12dp">
+        android:padding="14dp"
+        android:background="@drawable/bg_navbar">
         <ImageView
             android:layout_width="45dp"
             android:layout_height="45dp"
@@ -20,15 +21,14 @@
             android:id="@+id/appLogoActionBar">
         </ImageView>
 
-
         <RelativeLayout
-            android:id="@+id/balance"
+            android:id="@+id/balanceBorder"
             android:layout_width="130dp"
             android:layout_height="25dp"
             android:layout_marginStart="120dp"
             android:layout_marginEnd="15dp"
             android:layout_centerVertical="true"
-            android:layout_toStartOf="@+id/ppActionBar"
+            android:layout_toStartOf="@+id/dropdownMenu"
             android:layout_toEndOf="@+id/appLogoActionBar"
             android:background="@drawable/balance_border">
 
@@ -47,6 +47,7 @@
             </TextView>
 
             <TextView
+                android:id="@+id/balance"
                 android:layout_width="110dp"
                 android:layout_height="25dp"
                 android:layout_centerVertical="true"
@@ -70,10 +71,20 @@
             android:scaleType="centerCrop"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/pp_border"
-            android:id="@+id/ppActionBar">
+            android:id="@+id/dropdownMenu">
+
+            <RelativeLayout
+                android:id="@+id/ppHighlight"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:scaleType="centerCrop"
+                android:layout_centerVertical="true"
+                android:background="@drawable/pp_border"
+                android:visibility="invisible">
+            </RelativeLayout>
 
             <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/profilePicture"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 app:shapeAppearanceOverlay="@style/circle_image_view"
@@ -85,4 +96,58 @@
 
     </RelativeLayout>
 
-</RelativeLayout>
+    <LinearLayout
+        android:id="@+id/dropdownList"
+        android:layout_width="195dp"
+        android:layout_height="100dp"
+        android:layout_gravity="end"
+        android:orientation="vertical"
+        android:visibility="invisible">
+        <LinearLayout
+            android:layout_width="195dp"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_dropdown1">
+            <ImageView
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_marginStart="25dp"
+                app:srcCompat="@drawable/profile_icon"
+                android:layout_gravity="center">
+            </ImageView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="13dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Check Profile"
+                android:textAlignment="textStart"
+                android:textColor="@color/white"
+                android:textSize="12sp">
+            </TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="195dp"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_dropdown2">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="26dp"
+                android:layout_marginStart="26dp"
+                app:srcCompat="@drawable/logout_icon"
+                android:layout_gravity="center">
+            </ImageView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="14dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Logout"
+                android:textAlignment="textStart"
+                android:textColor="@color/white"
+                android:textSize="12sp">
+            </TextView>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
