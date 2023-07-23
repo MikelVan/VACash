@@ -58,6 +58,9 @@ public class HomePage extends AppCompatActivity {
         gamePlatformViewPager.setUserInputEnabled(false);
         gamePlatformViewPager.setAdapter(gamePlatformTabAdapter);
 
+        Intent loginActivity = getIntent();
+        user = loginActivity.getParcelableExtra("userData");
+
         dropdownMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,7 +88,7 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent profileActivity = new Intent(HomePage.this, ProfilePage.class);
-//                profileActivity.putExtra("userData", user);
+                profileActivity.putExtra("userData", user);
                 startActivity(profileActivity);
             }
         });
@@ -123,8 +126,6 @@ public class HomePage extends AppCompatActivity {
             }
         });
 
-        Intent loginActivity = getIntent();
-        user = loginActivity.getParcelableExtra("userData");
     }
 
     @Override
