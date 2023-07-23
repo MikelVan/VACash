@@ -24,47 +24,62 @@
         app:layout_constraintTop_toBottomOf="@id/action_bar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/gamePlatformTabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/gamePlatformTabLayout"
+            <LinearLayout
+                android:id="@+id/gamePlatformTabs"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
-                android:contentDescription="Game Platform Tab"
-                app:tabTextColor="@color/white"
-                app:tabIndicatorGravity="stretch"
-                app:tabIndicatorColor="@color/text_secondary"
-                app:tabIndicator="@drawable/bg_game_platform_tab"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:gravity="center"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintEnd_toEndOf="parent">
 
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/mobile_tab"
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
-                    android:text="Mobile"/>
+                    android:text="Mobile"
+                    android:textColor="@color/white"
+                    android:textAlignment="center"
+                    android:background="@drawable/bg_game_platform_tab"
+                    android:paddingVertical="6dp"/>
 
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/pc_tab"
+                    android:layout_width="85dp"
                     android:layout_height="wrap_content"
-                    android:text="PC"/>
+                    android:text="PC"
+                    android:textColor="@color/white"
+                    android:textAlignment="center"
+                    android:background="@drawable/bg_game_platform_tab"
+                    android:paddingVertical="6dp"
+                    android:alpha="0.3"
+                    android:layout_marginHorizontal="10dp"/>
 
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/console_tab"
+                    android:layout_width="85dp"
                     android:layout_height="wrap_content"
-                    android:text="Console"/>
+                    android:text="Console"
+                    android:textColor="@color/white"
+                    android:textAlignment="center"
+                    android:background="@drawable/bg_game_platform_tab"
+                    android:paddingVertical="6dp"
+                    android:alpha="0.3"/>
 
-            </com.google.android.material.tabs.TabLayout>
+            </LinearLayout>
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/gamePlatformViewPager"
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/gamePlatformFragmentView"
                 android:layout_width="370dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/gamePlatformTabLayout"
+                app:layout_constraintTop_toBottomOf="@id/gamePlatformTabs"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

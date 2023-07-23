@@ -3,32 +3,33 @@ package com.vacash.android;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.Animator;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
-import androidx.appcompat.widget.Toolbar;
-import androidx.viewpager2.widget.ViewPager2;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import com.google.android.material.tabs.TabLayout;
-import com.vacash.android.adapters.GamePlatformTabAdapter;
 import com.vacash.android.models.User;
-import com.vacash.android.page_transformers.FadePageTransform;
 
 public class HomePage extends AppCompatActivity {
 
     User user;
 
-    TabLayout gamePlatformTabLayout;
-    ViewPager2 gamePlatformViewPager;
-    GamePlatformTabAdapter gamePlatformTabAdapter;
-
+    private TextView mobileTab, pcTab, consoleTab;
+    private int selectedTabId = 1;
+    Integer tab_id = 1;
+    String tab_title = "Mobile";
+    private ConstraintLayout gamePlatformTabLayout;
     private RelativeLayout dropdownMenu, ppHighlight;
     private LinearLayout dropdownList;
     private Animation slideDownAnimation, slideUpAnimation;
@@ -44,39 +45,6 @@ public class HomePage extends AppCompatActivity {
         slideDownAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slidedown);
         slideUpAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup);
 
-        gamePlatformTabLayout = findViewById(R.id.gamePlatformTabLayout);
-        gamePlatformViewPager = findViewById(R.id.gamePlatformViewPager);
-        gamePlatformTabAdapter = new GamePlatformTabAdapter(getSupportFragmentManager(), getLifecycle());
-
-        gamePlatformViewPager.setUserInputEnabled(false);
-        gamePlatformViewPager.setAdapter(gamePlatformTabAdapter);
-        gamePlatformViewPager.setPageTransformer(new FadePageTransform());
-
-        gamePlatformTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                gamePlatformViewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
-        gamePlatformViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                gamePlatformTabLayout.selectTab(gamePlatformTabLayout.getTabAt(position));
-            }
-        });
-
         dropdownMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,6 +53,7 @@ public class HomePage extends AppCompatActivity {
                 } else {
                     ppHighlight.setVisibility(View.VISIBLE);
                 }
+
                 if (dropdownList.getVisibility() == View.VISIBLE) {
                     dropdownList.startAnimation(slideUpAnimation);
                     dropdownList.setVisibility(View.INVISIBLE);
@@ -95,8 +64,110 @@ public class HomePage extends AppCompatActivity {
             }
         });
 
+        mobileTab = findViewById(R.id.mobile_tab);
+        pcTab = findViewById(R.id.pc_tab);
+        consoleTab = findViewById(R.id.console_tab);
+        gamePlatformTabLayout = findViewById(R.id.gamePlatformTabLayout);
+
+        getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .replace(R.id.gamePlatformFragmentView, GameTab.newInstance(tab_id, tab_title), null)
+                .commit();
+
+        mobileTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectTab(1);
+            }
+        });
+
+        pcTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectTab(2);
+            }
+        });
+
+        consoleTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectTab(3);
+            }
+        });
+
         Intent loginActivity = getIntent();
         user = loginActivity.getParcelableExtra("userData");
+    }
+
+    private void selectTab(int position){
+
+        gamePlatformTabLayout.animate().alpha(0.0f).setDuration(500).setListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(@NonNull Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(@NonNull Animator animation) {
+                switch (position){
+                    case 1:
+                        tab_id = 1;
+                        tab_title = "Mobile";
+                        changeTabStyle(mobileTab, pcTab, consoleTab);
+                        break;
+                    case 2:
+                        tab_id = 2;
+                        tab_title = "PC";
+                        changeTabStyle(pcTab, mobileTab, consoleTab);
+                        break;
+                    case 3:
+                        tab_id = 3;
+                        tab_title = "Console";
+                        changeTabStyle(consoleTab, pcTab, mobileTab);
+                        break;
+                }
+
+                getSupportFragmentManager().beginTransaction()
+                        .setReorderingAllowed(true)
+                        .replace(R.id.gamePlatformFragmentView, GameTab.newInstance(tab_id, tab_title), null)
+                        .commit();
+
+                gamePlatformTabLayout.animate().alpha(1.0f).setDuration(500);
+            }
+
+            @Override
+            public void onAnimationCancel(@NonNull Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(@NonNull Animator animation) {
+
+            }
+        });
+
+    }
+
+    private void changeTabWidth(TextView tabView, int width){
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tabView.getLayoutParams();
+        params.width = width;
+        tabView.setLayoutParams(params);
+    }
+
+    private void changeTabStyle(TextView selectedTabView, TextView unselectedTabView1, TextView unselectedTabView2){
+        selectedTabView.setAlpha(1.0f);
+        changeTabWidth(selectedTabView, dpToPx(160));
+
+        unselectedTabView1.setAlpha(0.3f);
+        changeTabWidth(unselectedTabView1, dpToPx(85));
+
+        unselectedTabView2.setAlpha(0.3f);
+        changeTabWidth(unselectedTabView2, dpToPx(85));
+    }
+
+    private int dpToPx(float dp) {
+        float density = getApplicationContext().getResources().getDisplayMetrics().density;
+        return Math.round(dp * density);
     }
 
 }
