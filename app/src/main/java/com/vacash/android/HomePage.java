@@ -47,6 +47,9 @@ public class HomePage extends AppCompatActivity {
         slideDownAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slidedown);
         slideUpAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup);
 
+        Intent loginActivity = getIntent();
+        user = loginActivity.getParcelableExtra("userData");
+
         dropdownMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,7 +78,7 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent profileActivity = new Intent(HomePage.this, ProfilePage.class);
-//                profileActivity.putExtra("userData", user);
+                profileActivity.putExtra("userData", user);
                 startActivity(profileActivity);
             }
         });
@@ -118,9 +121,6 @@ public class HomePage extends AppCompatActivity {
                 selectTab(3);
             }
         });
-
-        Intent loginActivity = getIntent();
-        user = loginActivity.getParcelableExtra("userData");
     }
 
     private void selectTab(int position){
