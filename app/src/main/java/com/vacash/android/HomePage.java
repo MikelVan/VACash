@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -13,12 +12,14 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 import com.vacash.android.adapters.GamePlatformTabAdapter;
+import com.vacash.android.models.PurchaseHistory;
 import com.vacash.android.models.User;
+
+import java.util.ArrayList;
 
 public class HomePage extends AppCompatActivity {
 
@@ -31,6 +32,9 @@ public class HomePage extends AppCompatActivity {
     private RelativeLayout dropdownMenu;
     private LinearLayout dropdownList;
     private RelativeLayout ppHighlight;
+    private RelativeLayout dark_overlay;
+    private LinearLayout checkProfileButton;
+    private LinearLayout logoutButton;
     private Animation slideDownAnimation, slideUpAnimation;
 
     @Override
@@ -41,6 +45,9 @@ public class HomePage extends AppCompatActivity {
         dropdownMenu = findViewById(R.id.dropdownMenu);
         dropdownList = findViewById(R.id.dropdownList);
         ppHighlight = findViewById(R.id.ppHighlight);
+        dark_overlay = findViewById(R.id.dark_overlay);
+        checkProfileButton = findViewById(R.id.checkProfileButton);
+        logoutButton = findViewById(R.id.logoutButton);
         slideDownAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slidedown);
         slideUpAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup);
 
@@ -66,8 +73,31 @@ public class HomePage extends AppCompatActivity {
                     dropdownList.setVisibility(View.VISIBLE);
                     dropdownList.startAnimation(slideDownAnimation);
                 }
+                if (dark_overlay.getVisibility() == View.VISIBLE) {
+                    dark_overlay.setVisibility(View.INVISIBLE);
+                } else {
+                    dark_overlay.setVisibility(View.VISIBLE);
+                }
             }
         });
+
+        checkProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent profileActivity = new Intent(HomePage.this, ProfilePage.class);
+//                profileActivity.putExtra("userData", user);
+                startActivity(profileActivity);
+            }
+        });
+
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent loginActivity = new Intent(HomePage.this, LoginPage.class);
+                startActivity(loginActivity);
+            }
+        });
+
         gamePlatformTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

@@ -3,7 +3,7 @@ package com.vacash.android;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class ItemPageActivity extends AppCompatActivity {
+public class ItemPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
