@@ -6,9 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.vacash.android.ConsoleTab;
-import com.vacash.android.MobileTab;
-import com.vacash.android.PCTab;
+import com.vacash.android.GameTab;
 
 public class GamePlatformTabAdapter extends FragmentStateAdapter {
 
@@ -20,12 +18,12 @@ public class GamePlatformTabAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         switch (position){
-            case 0: return new MobileTab();
-            case 1: return new PCTab();
-            case 2: return new ConsoleTab();
+            case 0: return GameTab.newInstance(1, "Mobile");
+            case 1: return GameTab.newInstance(2, "PC");
+            case 2: return GameTab.newInstance(3, "Console");
         }
 
-        return new MobileTab();
+        return GameTab.newInstance(1, "Mobile");
     }
 
     @Override

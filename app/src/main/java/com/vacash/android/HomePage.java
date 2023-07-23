@@ -19,6 +19,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.tabs.TabLayout;
 import com.vacash.android.adapters.GamePlatformTabAdapter;
 import com.vacash.android.models.User;
+import com.vacash.android.page_transformers.FadePageTransform;
 
 public class HomePage extends AppCompatActivity {
 
@@ -49,24 +50,8 @@ public class HomePage extends AppCompatActivity {
 
         gamePlatformViewPager.setUserInputEnabled(false);
         gamePlatformViewPager.setAdapter(gamePlatformTabAdapter);
+        gamePlatformViewPager.setPageTransformer(new FadePageTransform());
 
-        dropdownMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ppHighlight.getVisibility() == View.VISIBLE) {
-                    ppHighlight.setVisibility(View.INVISIBLE);
-                } else {
-                    ppHighlight.setVisibility(View.VISIBLE);
-                }
-                if (dropdownList.getVisibility() == View.VISIBLE) {
-                    dropdownList.startAnimation(slideUpAnimation);
-                    dropdownList.setVisibility(View.INVISIBLE);
-                } else {
-                    dropdownList.setVisibility(View.VISIBLE);
-                    dropdownList.startAnimation(slideDownAnimation);
-                }
-            }
-        });
         gamePlatformTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -89,6 +74,24 @@ public class HomePage extends AppCompatActivity {
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 gamePlatformTabLayout.selectTab(gamePlatformTabLayout.getTabAt(position));
+            }
+        });
+
+        dropdownMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ppHighlight.getVisibility() == View.VISIBLE) {
+                    ppHighlight.setVisibility(View.INVISIBLE);
+                } else {
+                    ppHighlight.setVisibility(View.VISIBLE);
+                }
+                if (dropdownList.getVisibility() == View.VISIBLE) {
+                    dropdownList.startAnimation(slideUpAnimation);
+                    dropdownList.setVisibility(View.INVISIBLE);
+                } else {
+                    dropdownList.setVisibility(View.VISIBLE);
+                    dropdownList.startAnimation(slideDownAnimation);
+                }
             }
         });
 
