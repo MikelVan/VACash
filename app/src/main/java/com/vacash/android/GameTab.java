@@ -84,7 +84,8 @@ public class GameTab extends Fragment implements GameInterface {
 
     @Override
     public void onItemClick(int position) {
-        Toast.makeText(getContext(), "Opening " + games.get(position).getGameTitle(), Toast.LENGTH_SHORT);
+        System.out.println(games.get(position).getGameTitle());
+        Toast.makeText(getActivity(), "Opening " + games.get(position).getGameTitle(), Toast.LENGTH_SHORT).show();
     }
 
 }

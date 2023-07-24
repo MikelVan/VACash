@@ -27,7 +27,7 @@ public class HomePage extends AppCompatActivity {
     Integer tab_id = 1;
     String tab_title = "Mobile";
     private FragmentContainerView gamePlatformFirstTabLayout, gamePlatformSecondTabLayout;
-    private Fragment gamePlatformFirstTabView, gamePlatformSecondTabView;
+    private Fragment gamePlatformSecondTabView;
     Integer activatedFragment = 1;
     private RelativeLayout action_bar, dropdownMenu, ppHighlight, dark_overlay;
     private LinearLayout dropdownList, checkProfileButton, logoutButton;
