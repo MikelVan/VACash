@@ -4,6 +4,186 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_primary"
     tools:context=".DetailPage">
+
+    <View
+        android:id="@+id/navbarreplace"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="20dp"
+        android:background="#CAA9FF"
+        app:layout_constraintBaseline_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ItemInformationGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/navbarreplace">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/itemNamesLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:text="100 Stellar Jade"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toRightOf="@id/imageView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/shopNamesLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="Genshin Impact"
+            android:textColor="#A4A4A4"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toRightOf="@id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/itemNamesLabel" />
+
+        <TextView
+            android:id="@+id/itemPricesLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="IDR 300.000"
+            android:textColor="#CAA9FF"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toRightOf="@id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/shopNamesLabel" />
+
+        <TextView
+            android:id="@+id/itemDescriptionLabel"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:width="256dp"
+            android:text="Lorem ipsum dolor sit amet, consectetur adi piscing elit, sed do eiusmod tempor incidi dunt ut la bore et dolore magna aliqua."
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/horizontalLine"
+        android:layout_width="300dp"
+        android:layout_height="1dp"
+        android:background="#CAA9FF"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ItemInformationGroup"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/BuyDetailGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalLine">
+
+        <TextView
+            android:id="@+id/playerInformationLabel"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Player Information"
+            android:textColor="#CAA9FF"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/usernameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:text="Username"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@+id/playerInformationLabel" />
+
+        <EditText
+            android:id="@+id/usernameTextField"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edit_text_border"
+            android:ems="10"
+            android:hint="Input Username"
+            android:inputType="text"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="12dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/text_disabled"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/usernameLabel" />
+
+        <TextView
+            android:id="@+id/emailLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Email"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/usernameTextField" />
+
+        <EditText
+            android:id="@+id/emailTextField"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edit_text_border"
+            android:ems="10"
+            android:hint="Input Email"
+            android:inputType="textEmailAddress"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="12dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/text_disabled"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.469"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/emailLabel" />
+
+        <TextView
+            android:id="@+id/quantityLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Quantity"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/emailTextField" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/buyButton"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_button"
+        android:paddingVertical="10dp"
+        android:text="Buy - Rp HARGAHRGA"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/BuyDetailGroup" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
