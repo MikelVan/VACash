@@ -22,7 +22,7 @@
             android:id="@+id/navbarHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="20.5dp"
+            android:padding="18.5dp"
             android:background="@drawable/bg_navbar">
             <ImageView
                 android:layout_width="32dp"
