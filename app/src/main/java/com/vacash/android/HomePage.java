@@ -196,13 +196,13 @@ public class HomePage extends AppCompatActivity {
 
     private void changeTabStyle(TextView selectedTabView, TextView unselectedTabView1, TextView unselectedTabView2) {
         selectedTabView.setAlpha(1.0f);
-        changeTabWidth(selectedTabView, dpToPx(160));
+        changeTabWidth(selectedTabView, dpToPx(150));
 
         unselectedTabView1.setAlpha(0.3f);
-        changeTabWidth(unselectedTabView1, dpToPx(85));
+        changeTabWidth(unselectedTabView1, dpToPx(75));
 
         unselectedTabView2.setAlpha(0.3f);
-        changeTabWidth(unselectedTabView2, dpToPx(85));
+        changeTabWidth(unselectedTabView2, dpToPx(75));
     }
 
     private int dpToPx(float dp) {
