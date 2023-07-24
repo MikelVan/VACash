@@ -80,7 +80,17 @@
                     </LinearLayout>
 
                     <androidx.fragment.app.FragmentContainerView
-                        android:id="@+id/gamePlatformFragmentView"
+                        android:id="@+id/gamePlatformFirstTabView"
+                        android:layout_width="370dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/gamePlatformTabs"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <androidx.fragment.app.FragmentContainerView
+                        android:id="@+id/gamePlatformSecondTabView"
                         android:layout_width="370dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"

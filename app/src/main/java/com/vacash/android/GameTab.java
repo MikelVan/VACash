@@ -10,17 +10,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
+import android.widget.Toast;
 
 import com.vacash.android.adapters.GameAdapter;
+import com.vacash.android.interfaces.GameInterface;
 import com.vacash.android.models.Game;
 
 import java.util.ArrayList;
 
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
-public class GameTab extends Fragment {
+public class GameTab extends Fragment implements GameInterface {
     private Integer tab_id;
     private String tab_title;
+
+    ArrayList<Game> games= new ArrayList<>();
 
     public static GameTab newInstance(Integer tab_id, String tab_title) {
         GameTab fragment = new GameTab();
@@ -46,8 +50,6 @@ public class GameTab extends Fragment {
 
         HorizontalScrollView scrollView = view.findViewById(R.id.scrollableView);
         OverScrollDecoratorHelper.setUpOverScroll(scrollView);
-
-        ArrayList<Game> games= new ArrayList<>();
 
         switch (tab_id){
             case 1:
@@ -75,8 +77,14 @@ public class GameTab extends Fragment {
 
         RecyclerView gameRecycleView = view.findViewById(R.id.gameRecycleView);
         gameRecycleView.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false));
-        gameRecycleView.setAdapter(new GameAdapter(games));
+        gameRecycleView.setAdapter(new GameAdapter(games, this));
         // Inflate the layout for this fragment
         return view;
     }
+
+    @Override
+    public void onItemClick(int position) {
+        Toast.makeText(getContext(), "Opening " + games.get(position).getGameTitle(), Toast.LENGTH_SHORT);
+    }
+
 }

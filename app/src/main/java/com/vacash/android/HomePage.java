@@ -1,9 +1,7 @@
 package com.vacash.android;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.animation.Animation;
@@ -14,8 +12,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentContainerView;
 
+import com.vacash.android.interfaces.GameInterface;
 import com.vacash.android.models.User;
 
 public class HomePage extends AppCompatActivity {
@@ -23,10 +23,12 @@ public class HomePage extends AppCompatActivity {
     User user;
 
     private TextView mobileTab, pcTab, consoleTab;
-    private int selectedTabId = 1;
+//    private final int selectedTabId = 1;
     Integer tab_id = 1;
     String tab_title = "Mobile";
-    private ConstraintLayout gamePlatformTabLayout;
+    private FragmentContainerView gamePlatformFirstTabLayout, gamePlatformSecondTabLayout;
+    private Fragment gamePlatformFirstTabView, gamePlatformSecondTabView;
+    Integer activatedFragment = 1;
     private RelativeLayout action_bar, dropdownMenu, ppHighlight, dark_overlay;
     private LinearLayout dropdownList, checkProfileButton, logoutButton;
     private ImageView appLogoActionBar;
@@ -102,15 +104,19 @@ public class HomePage extends AppCompatActivity {
             }
         });
 
-        mobileTab = findViewById(R.id.mobile_tab);
-        pcTab = findViewById(R.id.pc_tab);
-        consoleTab = findViewById(R.id.console_tab);
-        gamePlatformTabLayout = findViewById(R.id.gamePlatformTabLayout);
+        gamePlatformFirstTabLayout = findViewById(R.id.gamePlatformFirstTabView);
+        gamePlatformSecondTabLayout = findViewById(R.id.gamePlatformSecondTabView);
 
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
-                .replace(R.id.gamePlatformFragmentView, GameTab.newInstance(tab_id, tab_title), null)
+                .replace(R.id.gamePlatformFirstTabView, GameTab.newInstance(tab_id, tab_title), null)
                 .commit();
+
+        mobileTab = findViewById(R.id.mobile_tab);
+        pcTab = findViewById(R.id.pc_tab);
+        consoleTab = findViewById(R.id.console_tab);
+
+        gamePlatformSecondTabLayout.setAlpha(0.0f);
 
         mobileTab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,62 +140,61 @@ public class HomePage extends AppCompatActivity {
         });
     }
 
-    private void selectTab(int position){
+    private void selectTab(int position) {
+        switch (position) {
+            case 1:
+                tab_id = 1;
+                tab_title = "Mobile";
+                changeTabStyle(mobileTab, pcTab, consoleTab);
+                break;
+            case 2:
+                tab_id = 2;
+                tab_title = "PC";
+                changeTabStyle(pcTab, mobileTab, consoleTab);
+                break;
+            case 3:
+                tab_id = 3;
+                tab_title = "Console";
+                changeTabStyle(consoleTab, pcTab, mobileTab);
+        }
 
-        gamePlatformTabLayout.animate().alpha(0.0f).setDuration(500).setListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(@NonNull Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(@NonNull Animator animation) {
-                switch (position){
-                    case 1:
-                        tab_id = 1;
-                        tab_title = "Mobile";
-                        changeTabStyle(mobileTab, pcTab, consoleTab);
-                        break;
-                    case 2:
-                        tab_id = 2;
-                        tab_title = "PC";
-                        changeTabStyle(pcTab, mobileTab, consoleTab);
-                        break;
-                    case 3:
-                        tab_id = 3;
-                        tab_title = "Console";
-                        changeTabStyle(consoleTab, pcTab, mobileTab);
-                        break;
-                }
+        switch (activatedFragment) {
+            case 1:
+                gamePlatformFirstTabLayout.animate().alpha(0.0f).setDuration(500);
 
                 getSupportFragmentManager().beginTransaction()
                         .setReorderingAllowed(true)
-                        .replace(R.id.gamePlatformFragmentView, GameTab.newInstance(tab_id, tab_title), null)
+                        .replace(R.id.gamePlatformSecondTabView, GameTab.newInstance(tab_id, tab_title), null)
                         .commit();
 
-                gamePlatformTabLayout.animate().alpha(1.0f).setDuration(500);
-            }
+                gamePlatformSecondTabLayout.bringToFront();
+                gamePlatformSecondTabLayout.animate().alpha(1.0f).setDuration(500);
 
-            @Override
-            public void onAnimationCancel(@NonNull Animator animation) {
+                activatedFragment = 2;
+                break;
+            case 2:
+                gamePlatformSecondTabLayout.animate().alpha(0.0f).setDuration(500);
 
-            }
+                getSupportFragmentManager().beginTransaction()
+                        .setReorderingAllowed(true)
+                        .replace(R.id.gamePlatformFirstTabView, GameTab.newInstance(tab_id, tab_title), null)
+                        .commit();
 
-            @Override
-            public void onAnimationRepeat(@NonNull Animator animation) {
+                gamePlatformFirstTabLayout.bringToFront();
+                gamePlatformFirstTabLayout.animate().alpha(1.0f).setDuration(500);
 
-            }
-        });
+                activatedFragment = 1;
+        }
 
     }
 
-    private void changeTabWidth(TextView tabView, int width){
+    private void changeTabWidth(TextView tabView, int width) {
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tabView.getLayoutParams();
         params.width = width;
         tabView.setLayoutParams(params);
     }
 
-    private void changeTabStyle(TextView selectedTabView, TextView unselectedTabView1, TextView unselectedTabView2){
+    private void changeTabStyle(TextView selectedTabView, TextView unselectedTabView1, TextView unselectedTabView2) {
         selectedTabView.setAlpha(1.0f);
         changeTabWidth(selectedTabView, dpToPx(160));
 
