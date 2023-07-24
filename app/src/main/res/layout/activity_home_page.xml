@@ -33,71 +33,107 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/gamePlatformTabLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
+                    android:layout_height="wrap_content"
+                    tools:ignore="constraintlayout">
                     <LinearLayout
-                        android:id="@+id/gamePlatformTabs"
-                        android:layout_width="350dp"
+                        android:id="@+id/carouselSection"
+                        android:layout_width="320dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="23dp"
                         android:gravity="center"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent">
-
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:orientation="vertical">
                         <TextView
-                            android:id="@+id/mobile_tab"
-                            android:layout_width="160dp"
+                            android:id="@+id/welcomeMessage"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Mobile"
-                            android:textColor="@color/white"
-                            android:textAlignment="center"
-                            android:background="@drawable/bg_game_platform_tab"
-                            android:paddingVertical="6dp"/>
-
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="Welcome back, (name)!"
+                            android:textColor="@color/text_ternary"
+                            android:textSize="15sp"/>
                         <TextView
-                            android:id="@+id/pc_tab"
-                            android:layout_width="85dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="PC"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="Only for You"
                             android:textColor="@color/white"
-                            android:textAlignment="center"
-                            android:background="@drawable/bg_game_platform_tab"
-                            android:paddingVertical="6dp"
-                            android:alpha="0.3"
-                            android:layout_marginHorizontal="10dp"/>
-
-                        <TextView
-                            android:id="@+id/console_tab"
-                            android:layout_width="85dp"
-                            android:layout_height="wrap_content"
-                            android:text="Console"
-                            android:textColor="@color/white"
-                            android:textAlignment="center"
-                            android:background="@drawable/bg_game_platform_tab"
-                            android:paddingVertical="6dp"
-                            android:alpha="0.3"/>
-
+                            android:textSize="20sp"/>
                     </LinearLayout>
-
-                    <androidx.fragment.app.FragmentContainerView
-                        android:id="@+id/gamePlatformFirstTabView"
-                        android:layout_width="370dp"
-                        android:layout_height="wrap_content"
+                    <View
+                        android:id="@+id/line1"
+                        android:layout_width="320dp"
+                        android:layout_height="2dp"
                         android:layout_marginTop="15dp"
+                        android:background="@color/text_primary"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/gamePlatformTabs"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
+                        app:layout_constraintTop_toBottomOf="@+id/carouselSection" />
 
-                    <androidx.fragment.app.FragmentContainerView
-                        android:id="@+id/gamePlatformSecondTabView"
-                        android:layout_width="370dp"
+                    <LinearLayout
+                        android:layout_width="320dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/gamePlatformTabs"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
+                        app:layout_constraintTop_toTopOf="@id/line1"
+                        app:layout_constraintStart_toStartOf="@id/line1"
+                        app:layout_constraintEnd_toEndOf="@id/line1"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="List of Games"
+                            android:textColor="@color/white"
+                            android:textSize="20sp">
+                        </TextView>
+                        <LinearLayout
+                            android:id="@+id/gamePlatformTabs"
+                            android:layout_width="match_parent"
+                            android:layout_marginTop="3dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/mobile_tab"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:text="Mobile"
+                                android:textColor="@color/white"
+                                android:textAlignment="center"
+                                android:background="@drawable/bg_game_platform_tab"
+                                android:paddingVertical="6dp"/>
+
+                            <TextView
+                                android:id="@+id/pc_tab"
+                                android:layout_width="75dp"
+                                android:layout_height="wrap_content"
+                                android:text="PC"
+                                android:textColor="@color/white"
+                                android:textAlignment="center"
+                                android:background="@drawable/bg_game_platform_tab"
+                                android:paddingVertical="6dp"
+                                android:alpha="0.3"
+                                android:layout_marginHorizontal="10dp"/>
+
+                            <TextView
+                                android:id="@+id/console_tab"
+                                android:layout_width="75dp"
+                                android:layout_height="wrap_content"
+                                android:text="Console"
+                                android:textColor="@color/white"
+                                android:textAlignment="center"
+                                android:background="@drawable/bg_game_platform_tab"
+                                android:paddingVertical="6dp"
+                                android:alpha="0.3"/>
+
+                        </LinearLayout>
+                        <androidx.fragment.app.FragmentContainerView
+                            android:id="@+id/gamePlatformFragmentView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"/>
+                    </LinearLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
