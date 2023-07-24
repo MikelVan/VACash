@@ -10,16 +10,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vacash.android.R;
+import com.vacash.android.interfaces.GameInterface;
 import com.vacash.android.models.Game;
 
 import java.util.List;
 
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
-
+    private final GameInterface gameInterface;
     List<Game> games;
 
-    public GameAdapter(List<Game> games) {
+    public GameAdapter(List<Game> games, GameInterface gameInterface) {
         this.games = games;
+        this.gameInterface = gameInterface;
     }
 
     @NonNull
@@ -51,6 +53,19 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
             gameLogo = gameView.findViewById(R.id.gameLogo);
             gameTitleView = gameView.findViewById(R.id.gameTitle);
             gameDeveloperView = gameView.findViewById(R.id.gameDeveloper);
+
+            gameView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(gameInterface != null){
+                        int pos = getBindingAdapterPosition();
+
+                        if(pos != RecyclerView.NO_POSITION){
+                            gameInterface.onItemClick(pos);
+                        }
+                    }
+                }
+            });
         }
 
     }
