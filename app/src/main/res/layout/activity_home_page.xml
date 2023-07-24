@@ -129,7 +129,12 @@
 
                         </LinearLayout>
                         <androidx.fragment.app.FragmentContainerView
-                            android:id="@+id/gamePlatformFragmentView"
+                            android:id="@+id/gamePlatformFirstTabView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"/>
+                        <androidx.fragment.app.FragmentContainerView
+                            android:id="@+id/gamePlatformSecondTabView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="15dp"/>
