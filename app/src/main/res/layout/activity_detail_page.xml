@@ -87,7 +87,7 @@
 
     <View
         android:id="@+id/horizontalLine"
-        android:layout_width="300dp"
+        android:layout_width="320dp"
         android:layout_height="1dp"
         android:background="@color/text_ternary"
         android:layout_marginTop="20dp"
@@ -97,7 +97,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/BuyDetailGroup"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
