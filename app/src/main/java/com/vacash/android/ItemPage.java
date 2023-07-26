@@ -8,12 +8,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Layout;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.vacash.android.adapters.ItemAdapter;
 import com.vacash.android.models.Item;
+import com.vacash.android.models.User;
 
 import java.util.ArrayList;
 
@@ -21,19 +27,92 @@ import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 public class ItemPage extends AppCompatActivity {
 
-    ImageView gameLogo;
-    TextView gameNameView, gameDeveloperView, gameCategoryView;
+    private User user;
+    private ImageView gameLogo;
+    private TextView gameNameView, gameDeveloperView, gameCategoryView;
+    private RelativeLayout action_bar, dropdownMenu, ppHighlight, dark_overlay;
+    private LinearLayout dropdownList, checkProfileButton, logoutButton;
+    private ImageView homeIconActionBar;
+    private Animation slideDownAnimation, slideUpAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_page);
 
+        action_bar = findViewById(R.id.actionBar);
+        dropdownMenu = findViewById(R.id.dropdownMenu);
+        dropdownList = findViewById(R.id.dropdownList);
+        ppHighlight = findViewById(R.id.ppHighlight);
+        dark_overlay = findViewById(R.id.dark_overlay);
+        checkProfileButton = findViewById(R.id.checkProfileButton);
+        logoutButton = findViewById(R.id.logoutButton);
+        homeIconActionBar = findViewById(R.id.homeIconActionBar);
+        slideDownAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slidedown);
+        slideUpAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup);
+
+        slideDownAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+        slideUpAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+
+        action_bar.bringToFront();
+
+        Intent loginActivity = getIntent();
+        user = loginActivity.getParcelableExtra("userData");
+
+        dropdownMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ppHighlight.getAlpha() == 0.0f) {
+                    ppHighlight.animate().alpha(1.0f).setDuration(500);
+                } else {
+                    ppHighlight.animate().alpha(0.0f).setDuration(500);
+                }
+
+                if (dropdownList.getVisibility() == View.VISIBLE) {
+                    dropdownList.startAnimation(slideUpAnimation);
+                    dropdownList.setVisibility(View.INVISIBLE);
+                } else {
+                    dropdownList.setVisibility(View.VISIBLE);
+                    dropdownList.startAnimation(slideDownAnimation);
+                }
+
+                if (dark_overlay.getAlpha() == 0.0f) {
+                    dark_overlay.animate().alpha(1.0f).setDuration(500);
+                } else {
+                    dark_overlay.animate().alpha(0.0f).setDuration(500);
+                }
+            }
+        });
+
+        checkProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent profileActivity = new Intent(ItemPage.this, ProfilePage.class);
+                profileActivity.putExtra("userData", user);
+                startActivity(profileActivity);
+            }
+        });
+
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent loginActivity = new Intent(ItemPage.this, LoginPage.class);
+                startActivity(loginActivity);
+            }
+        });
+
+        homeIconActionBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent homeActivity = new Intent(ItemPage.this, HomePage.class);
+                homeActivity.putExtra("userData", user);
+                startActivity(homeActivity);
+            }
+        });
+
         ScrollView scrollView = findViewById(R.id.scrollableView);
-        View actionBar = findViewById(R.id.actionBar);
 
         OverScrollDecoratorHelper.setUpOverScroll(scrollView);
-        actionBar.bringToFront();
 
         gameLogo = findViewById(R.id.gameLogoView);
         gameNameView = findViewById(R.id.gameNameView);

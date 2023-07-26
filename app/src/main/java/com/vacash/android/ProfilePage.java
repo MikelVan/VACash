@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -77,6 +78,11 @@ public class ProfilePage extends AppCompatActivity {
         slideDownAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slidedown);
         slideUpAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup);
 
+        slideDownAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+        slideUpAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+
+        action_bar.bringToFront();
+
         Intent previousActivity = getIntent();
         user = previousActivity.getParcelableExtra("userData");
 
@@ -90,11 +96,10 @@ public class ProfilePage extends AppCompatActivity {
         dropdownMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                action_bar.bringToFront();
-                if (ppHighlight.getVisibility() == View.VISIBLE) {
-                    ppHighlight.setVisibility(View.INVISIBLE);
+                if (ppHighlight.getAlpha() == 0.0f) {
+                    ppHighlight.animate().alpha(1.0f).setDuration(500);
                 } else {
-                    ppHighlight.setVisibility(View.VISIBLE);
+                    ppHighlight.animate().alpha(0.0f).setDuration(500);
                 }
 
                 if (dropdownList.getVisibility() == View.VISIBLE) {
@@ -104,10 +109,11 @@ public class ProfilePage extends AppCompatActivity {
                     dropdownList.setVisibility(View.VISIBLE);
                     dropdownList.startAnimation(slideDownAnimation);
                 }
-                if (dark_overlay.getVisibility() == View.VISIBLE) {
-                    dark_overlay.setVisibility(View.INVISIBLE);
+
+                if (dark_overlay.getAlpha() == 0.0f) {
+                    dark_overlay.animate().alpha(1.0f).setDuration(500);
                 } else {
-                    dark_overlay.setVisibility(View.VISIBLE);
+                    dark_overlay.animate().alpha(0.0f).setDuration(500);
                 }
             }
         });

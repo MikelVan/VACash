@@ -28,9 +28,8 @@ public class HomePage extends AppCompatActivity {
     Integer tab_id = 1;
     String tab_title = "Mobile";
     private FragmentContainerView gamePlatformFirstTabLayout, gamePlatformSecondTabLayout;
-    private Fragment gamePlatformSecondTabView;
     Integer activatedFragment = 1;
-    private RelativeLayout action_bar, navbarHeader, dropdownMenu, ppHighlight, dark_overlay;
+    private RelativeLayout action_bar, dropdownMenu, ppHighlight, dark_overlay;
     private LinearLayout dropdownList, checkProfileButton, logoutButton;
     private ImageView appLogoActionBar;
     private Animation slideDownAnimation, slideUpAnimation;
@@ -63,10 +62,8 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (ppHighlight.getAlpha() == 0.0f) {
-                    System.out.println("Show pp");
                     ppHighlight.animate().alpha(1.0f).setDuration(500);
                 } else {
-                    System.out.println("Hide pp");
                     ppHighlight.animate().alpha(0.0f).setDuration(500);
                 }
 
@@ -79,10 +76,8 @@ public class HomePage extends AppCompatActivity {
                 }
 
                 if (dark_overlay.getAlpha() == 0.0f) {
-                    System.out.println("Show backdrop");
                     dark_overlay.animate().alpha(1.0f).setDuration(500);
                 } else {
-                    System.out.println("Hide backdrop");
                     dark_overlay.animate().alpha(0.0f).setDuration(500);
                 }
             }
