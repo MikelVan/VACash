@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
         <include
             layout="@layout/action_bar_home_button"
-            android:id="@+id/action_bar"/>
+            android:id="@+id/actionBar"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -42,6 +42,7 @@
                         android:orientation="horizontal"
                         android:layout_gravity="center">
                         <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/gameLogoView"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
                             android:scaleType="centerCrop"
@@ -55,6 +56,7 @@
                             android:layout_marginStart="25dp"
                             android:layout_gravity="center">
                             <TextView
+                                android:id="@+id/gameNameView"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Games Name"
@@ -63,6 +65,7 @@
                                 android:textSize="16sp">
                             </TextView>
                             <TextView
+                                android:id="@+id/gameDeveloperView"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="-5dp"
@@ -77,6 +80,7 @@
                                 android:background="@drawable/bg_category"
                                 android:layout_marginTop="8dp">
                                 <TextView
+                                    android:id="@+id/gameCategoryView"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="Category"

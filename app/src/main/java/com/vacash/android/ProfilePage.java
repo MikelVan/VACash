@@ -2,7 +2,6 @@ package com.vacash.android;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,7 +25,6 @@ import com.vacash.android.models.PurchaseHistory;
 import com.vacash.android.models.User;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
@@ -68,7 +66,7 @@ public class ProfilePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_page);
 
-        action_bar = findViewById(R.id.action_bar);
+        action_bar = findViewById(R.id.actionBar);
         dropdownMenu = findViewById(R.id.dropdownMenu);
         dropdownList = findViewById(R.id.dropdownList);
         ppHighlight = findViewById(R.id.ppHighlight);

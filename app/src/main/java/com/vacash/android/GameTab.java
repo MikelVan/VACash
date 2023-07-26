@@ -1,5 +1,6 @@
 package com.vacash.android;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,8 +16,11 @@ import android.widget.Toast;
 import com.vacash.android.adapters.GameAdapter;
 import com.vacash.android.interfaces.GameInterface;
 import com.vacash.android.models.Game;
+import com.vacash.android.models.User;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
@@ -85,7 +89,35 @@ public class GameTab extends Fragment implements GameInterface {
     @Override
     public void onItemClick(int position) {
         System.out.println(games.get(position).getGameTitle());
-        Toast.makeText(getActivity(), "Opening " + games.get(position).getGameTitle(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getActivity(), "Opening " + games.get(position).getGameTitle(), Toast.LENGTH_SHORT).show();
+
+        String gameCategory = "";
+
+        switch (tab_id){
+            case 1:
+                gameCategory = "Mobile";
+                break;
+            case 2:
+                gameCategory = "PC";
+                break;
+            case 3:
+                gameCategory = "Console";
+        }
+
+        User user = getActivity().getIntent().getParcelableExtra("userData");
+        List<String> gameDetail = new ArrayList<>();
+        gameDetail.add(games.get(position).getGameTitle());
+        gameDetail.add(games.get(position).getGameDeveloper());
+        gameDetail.add(gameCategory);
+
+        Intent itemActivity = new Intent(getActivity(), ItemPage.class);
+        itemActivity.putExtra("userData", user);
+        itemActivity.putExtra("gameLogo", games.get(position).getGameLogo());
+        itemActivity.putExtra("gameName", games.get(position).getGameTitle());
+        itemActivity.putExtra("gameDeveloper", games.get(position).getGameDeveloper());
+        itemActivity.putExtra("gameCategory", gameCategory);
+        startActivity(itemActivity);
+
     }
 
 }

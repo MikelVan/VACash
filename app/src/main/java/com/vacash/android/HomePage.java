@@ -15,7 +15,6 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 
-import com.vacash.android.interfaces.GameInterface;
 import com.vacash.android.models.User;
 
 public class HomePage extends AppCompatActivity {
@@ -39,7 +38,7 @@ public class HomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-        action_bar = findViewById(R.id.action_bar);
+        action_bar = findViewById(R.id.actionBar);
         dropdownMenu = findViewById(R.id.dropdownMenu);
         dropdownList = findViewById(R.id.dropdownList);
         ppHighlight = findViewById(R.id.ppHighlight);

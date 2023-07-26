@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
         <include
             layout="@layout/action_bar_logo"
-            android:id="@+id/action_bar"/>
+            android:id="@+id/actionBar"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
