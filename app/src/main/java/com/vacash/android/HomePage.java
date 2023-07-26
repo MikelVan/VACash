@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.View;
@@ -28,7 +30,7 @@ public class HomePage extends AppCompatActivity {
     private FragmentContainerView gamePlatformFirstTabLayout, gamePlatformSecondTabLayout;
     private Fragment gamePlatformSecondTabView;
     Integer activatedFragment = 1;
-    private RelativeLayout action_bar, dropdownMenu, ppHighlight, dark_overlay;
+    private RelativeLayout action_bar, navbarHeader, dropdownMenu, ppHighlight, dark_overlay;
     private LinearLayout dropdownList, checkProfileButton, logoutButton;
     private ImageView appLogoActionBar;
     private Animation slideDownAnimation, slideUpAnimation;
@@ -49,17 +51,23 @@ public class HomePage extends AppCompatActivity {
         slideDownAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slidedown);
         slideUpAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup);
 
+        slideDownAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+        slideUpAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+
+        action_bar.bringToFront();
+
         Intent loginActivity = getIntent();
         user = loginActivity.getParcelableExtra("userData");
 
         dropdownMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                action_bar.bringToFront();
-                if (ppHighlight.getVisibility() == View.VISIBLE) {
-                    ppHighlight.setVisibility(View.INVISIBLE);
+                if (ppHighlight.getAlpha() == 0.0f) {
+                    System.out.println("Show pp");
+                    ppHighlight.animate().alpha(1.0f).setDuration(500);
                 } else {
-                    ppHighlight.setVisibility(View.VISIBLE);
+                    System.out.println("Hide pp");
+                    ppHighlight.animate().alpha(0.0f).setDuration(500);
                 }
 
                 if (dropdownList.getVisibility() == View.VISIBLE) {
@@ -69,10 +77,13 @@ public class HomePage extends AppCompatActivity {
                     dropdownList.setVisibility(View.VISIBLE);
                     dropdownList.startAnimation(slideDownAnimation);
                 }
-                if (dark_overlay.getVisibility() == View.VISIBLE) {
-                    dark_overlay.setVisibility(View.INVISIBLE);
+
+                if (dark_overlay.getAlpha() == 0.0f) {
+                    System.out.println("Show backdrop");
+                    dark_overlay.animate().alpha(1.0f).setDuration(500);
                 } else {
-                    dark_overlay.setVisibility(View.VISIBLE);
+                    System.out.println("Hide backdrop");
+                    dark_overlay.animate().alpha(0.0f).setDuration(500);
                 }
             }
         });
