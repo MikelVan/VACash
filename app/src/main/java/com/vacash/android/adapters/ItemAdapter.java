@@ -13,7 +13,9 @@ import com.vacash.android.R;
 import com.vacash.android.interfaces.ItemInterface;
 import com.vacash.android.models.Item;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class ItemAdapter  extends RecyclerView.Adapter<ItemAdapter.ViewHolder>{
 
@@ -37,8 +39,12 @@ public class ItemAdapter  extends RecyclerView.Adapter<ItemAdapter.ViewHolder>{
         holder.shopName.setText(items.get(position).getShopName());
         holder.itemsName.setText(items.get(position).getItemsName());
 
-        String totalPriceText = "IDR " + items.get(position).getItemsPrice().toString();
+        String totalPriceText = "IDR " + toCurrencyString(items.get(position).getItemsPrice());
         holder.itemsPrice.setText(totalPriceText);
+    }
+
+    private String toCurrencyString(Integer value){
+        return NumberFormat.getCurrencyInstance(new Locale("id", "ID")).format(value).replace("Rp", "");
     }
 
     @Override

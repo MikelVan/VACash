@@ -120,7 +120,8 @@
                             android:id="@+id/ItemRecycleView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginVertical="13dp">
+                            android:layout_marginVertical="13dp"
+                            android:overScrollMode="never">
                         </androidx.recyclerview.widget.RecyclerView>
                     </LinearLayout>
                 </LinearLayout>

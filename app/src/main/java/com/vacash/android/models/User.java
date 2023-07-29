@@ -31,7 +31,7 @@ public class User implements Parcelable {
         dest.writeString(username);
         dest.writeString(email);
         dest.writeInt(balance);
-        dest.writeList(purchaseHistories);
+        dest.writeTypedList(purchaseHistories);
     }
 
     public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
@@ -48,8 +48,8 @@ public class User implements Parcelable {
         username = in.readString();
         email = in.readString();
         balance = in.readInt();
-        purchaseHistories = new ArrayList<>();
-        in.readList(purchaseHistories, purchaseHistories.getClass().getClassLoader());
+        purchaseHistories = new ArrayList<PurchaseHistory>();
+        in.readTypedList(purchaseHistories, PurchaseHistory.CREATOR);
     }
 
     public String getUsername() {
@@ -80,11 +80,19 @@ public class User implements Parcelable {
         this.balance += value;
     }
 
+    public void reduceBalance(Integer value)  {
+        this.balance -= value;
+    }
+
     public ArrayList<PurchaseHistory> getPurchaseHistories() {
         return purchaseHistories;
     }
 
     public void setPurchaseHistories(ArrayList<PurchaseHistory> purchaseHistories) {
         this.purchaseHistories = purchaseHistories;
+    }
+
+    public void addPurchaseHistories(PurchaseHistory purchaseHistory){
+        this.purchaseHistories.add(purchaseHistory);
     }
 }

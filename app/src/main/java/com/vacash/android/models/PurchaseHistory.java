@@ -1,6 +1,13 @@
 package com.vacash.android.models;
 
-public class PurchaseHistory {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+import java.util.ArrayList;
+
+public class PurchaseHistory implements Parcelable{
 
     private String gameName, itemName;
     private Integer itemQty, totalPrice;
@@ -10,6 +17,36 @@ public class PurchaseHistory {
         this.itemName = itemName;
         this.itemQty = itemQty;
         this.totalPrice = totalPrice;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(gameName);
+        dest.writeString(itemName);
+        dest.writeInt(itemQty);
+        dest.writeInt(totalPrice);
+    }
+
+    public static final Parcelable.Creator<PurchaseHistory> CREATOR = new Parcelable.Creator<PurchaseHistory>() {
+        public PurchaseHistory createFromParcel(Parcel in) {
+            return new PurchaseHistory(in);
+        }
+
+        public PurchaseHistory[] newArray(int size) {
+            return new PurchaseHistory[size];
+        }
+    };
+
+    private PurchaseHistory(Parcel in) {
+        gameName = in.readString();
+        itemName = in.readString();
+        itemQty = in.readInt();
+        totalPrice = in.readInt();
     }
 
     public String getGameName() {

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
+import android.os.Handler;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
@@ -32,12 +32,13 @@ import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 public class ItemPage extends AppCompatActivity implements ItemInterface {
 
     private User user;
+    private String gameName;
     private ImageView gameLogo;
     private TextView gameNameView, gameDeveloperView, gameCategoryView, userBalance;
     private RelativeLayout action_bar, dropdownMenu, ppHighlight, dark_overlay;
     private LinearLayout dropdownList, checkProfileButton, logoutButton;
     private ImageView homeIconActionBar;
-    private Animation slideDownAnimation, slideUpAnimation;
+    private Animation slideDownAnimation, slideUpAnimation, fadeInAnimation, fadeOutAnimation;
 
     private ArrayList<Item> listOfItems;
 
@@ -57,24 +58,53 @@ public class ItemPage extends AppCompatActivity implements ItemInterface {
         userBalance = findViewById(R.id.balance);
         slideDownAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slidedown);
         slideUpAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup);
+        fadeInAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadein);
+        fadeOutAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadeout);
 
         slideDownAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
         slideUpAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
 
         action_bar.bringToFront();
 
-        Intent loginActivity = getIntent();
-        user = loginActivity.getParcelableExtra("userData");
+        Intent previousPage = getIntent();
+        user = previousPage.getParcelableExtra("userData");
 
-        setUserBalanceText(user.getBalance());
+        userBalance.setText(toCurrencyString(user.getBalance()));
+
+        dark_overlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dark_overlay.setEnabled(false);
+
+                ppHighlight.startAnimation(fadeOutAnimation);
+                ppHighlight.setVisibility(View.INVISIBLE);
+
+                if (dropdownList.getVisibility() == View.VISIBLE) {
+                    dropdownList.startAnimation(slideUpAnimation);
+                    dropdownList.setVisibility(View.INVISIBLE);
+                }
+
+                dark_overlay.startAnimation(fadeOutAnimation);
+                dark_overlay.setVisibility(View.INVISIBLE);
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        dark_overlay.setEnabled(true);
+                    }
+                },550);
+            }
+        });
 
         dropdownMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ppHighlight.getAlpha() == 0.0f) {
-                    ppHighlight.animate().alpha(1.0f).setDuration(500);
+                if (ppHighlight.getVisibility() == View.VISIBLE) {
+                    ppHighlight.startAnimation(fadeOutAnimation);
+                    ppHighlight.setVisibility(View.INVISIBLE);
                 } else {
-                    ppHighlight.animate().alpha(0.0f).setDuration(500);
+                    ppHighlight.setVisibility(View.VISIBLE);
+                    ppHighlight.startAnimation(fadeInAnimation);
                 }
 
                 if (dropdownList.getVisibility() == View.VISIBLE) {
@@ -85,10 +115,12 @@ public class ItemPage extends AppCompatActivity implements ItemInterface {
                     dropdownList.startAnimation(slideDownAnimation);
                 }
 
-                if (dark_overlay.getAlpha() == 0.0f) {
-                    dark_overlay.animate().alpha(1.0f).setDuration(500);
+                if (dark_overlay.getVisibility() == View.VISIBLE) {
+                    dark_overlay.startAnimation(fadeOutAnimation);
+                    dark_overlay.setVisibility(View.INVISIBLE);
                 } else {
-                    dark_overlay.animate().alpha(0.0f).setDuration(500);
+                    dark_overlay.setVisibility(View.VISIBLE);
+                    dark_overlay.startAnimation(fadeInAnimation);
                 }
             }
         });
@@ -128,8 +160,7 @@ public class ItemPage extends AppCompatActivity implements ItemInterface {
         gameDeveloperView = findViewById(R.id.gameDeveloperView);
         gameCategoryView = findViewById(R.id.gameCategoryView);
 
-        Intent previousPage = getIntent();
-        String gameName = previousPage.getStringExtra("gameName");
+        gameName = previousPage.getStringExtra("gameName");
 
         gameLogo.setImageResource(previousPage.getIntExtra("gameLogo", 0));
         gameNameView.setText(previousPage.getStringExtra("gameName"));
@@ -199,12 +230,16 @@ public class ItemPage extends AppCompatActivity implements ItemInterface {
         itemsRecycleView.setAdapter(new ItemAdapter(listOfItems, this));
     }
 
-    private void setUserBalanceText(Integer balance){
-        userBalance.setText(NumberFormat.getCurrencyInstance(new Locale("id", "ID")).format(balance).replace("Rp", ""));
+    private String toCurrencyString(Integer value){
+        return NumberFormat.getCurrencyInstance(new Locale("id", "ID")).format(value).replace("Rp", "");
     }
 
     @Override
     public void onItemClick(int position) {
-        Toast.makeText(getApplicationContext(), listOfItems.get(position).getItemsName(), Toast.LENGTH_SHORT).show();
+        Intent detailActivity = new Intent(ItemPage.this, DetailPage.class);
+        detailActivity.putExtra("userData", user);
+        detailActivity.putExtra("itemData", listOfItems.get(position));
+        detailActivity.putExtra("gameName", gameName);
+        startActivity(detailActivity);
     }
 }
