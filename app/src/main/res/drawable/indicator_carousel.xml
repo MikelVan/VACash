@@ -2,17 +2,23 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_selected="true">
         <shape
-            android:shape="ring"
-            android:innerRadius="8dp">
-            <solid android:color="#D8D8D8"/>
+            android:shape="oval">
+            <solid android:color ="#D8D8D8"></solid>
+            <size
+                android:width="8dp"
+                android:height="8dp"
+            />
         </shape>
     </item>
 
-    <item android:state_selected="true">
+    <item android:state_selected="false">
         <shape
-            android:shape="ring"
-            android:innerRadius="8dp">
+            android:shape="oval">
             <solid android:color="#5B5B5B"/>
+            <size
+                android:width="8dp"
+                android:height="8dp"
+                />
         </shape>
     </item>
 </selector>
