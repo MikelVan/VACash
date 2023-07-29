@@ -16,24 +16,30 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.vacash.android.adapters.ItemAdapter;
+import com.vacash.android.interfaces.ItemInterface;
 import com.vacash.android.models.Item;
 import com.vacash.android.models.User;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
-public class ItemPage extends AppCompatActivity {
+public class ItemPage extends AppCompatActivity implements ItemInterface {
 
     private User user;
     private ImageView gameLogo;
-    private TextView gameNameView, gameDeveloperView, gameCategoryView;
+    private TextView gameNameView, gameDeveloperView, gameCategoryView, userBalance;
     private RelativeLayout action_bar, dropdownMenu, ppHighlight, dark_overlay;
     private LinearLayout dropdownList, checkProfileButton, logoutButton;
     private ImageView homeIconActionBar;
     private Animation slideDownAnimation, slideUpAnimation;
+
+    private ArrayList<Item> listOfItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +54,7 @@ public class ItemPage extends AppCompatActivity {
         checkProfileButton = findViewById(R.id.checkProfileButton);
         logoutButton = findViewById(R.id.logoutButton);
         homeIconActionBar = findViewById(R.id.homeIconActionBar);
+        userBalance = findViewById(R.id.balance);
         slideDownAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slidedown);
         slideUpAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup);
 
@@ -58,6 +65,8 @@ public class ItemPage extends AppCompatActivity {
 
         Intent loginActivity = getIntent();
         user = loginActivity.getParcelableExtra("userData");
+
+        setUserBalanceText(user.getBalance());
 
         dropdownMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,7 +136,7 @@ public class ItemPage extends AppCompatActivity {
         gameDeveloperView.setText(previousPage.getStringExtra("gameDeveloper"));
         gameCategoryView.setText(previousPage.getStringExtra("gameCategory"));
 
-        ArrayList<Item> listOfItems = new ArrayList<>();
+        listOfItems = new ArrayList<>();
 
         if (gameName.equals("Genshin Impact")){
             listOfItems.add(new Item("Codashop", "60 Genesis Crystals", 16500, R.drawable.item_genesis_crystal));
@@ -187,7 +196,15 @@ public class ItemPage extends AppCompatActivity {
 
         RecyclerView itemsRecycleView = findViewById(R.id.ItemRecycleView);
         itemsRecycleView.setLayoutManager(new LinearLayoutManager(this));
-        itemsRecycleView.setAdapter(new ItemAdapter(
-                listOfItems));
+        itemsRecycleView.setAdapter(new ItemAdapter(listOfItems, this));
+    }
+
+    private void setUserBalanceText(Integer balance){
+        userBalance.setText(NumberFormat.getCurrencyInstance(new Locale("id", "ID")).format(balance).replace("Rp", ""));
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Toast.makeText(getApplicationContext(), listOfItems.get(position).getItemsName(), Toast.LENGTH_SHORT).show();
     }
 }

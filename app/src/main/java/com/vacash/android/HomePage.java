@@ -19,11 +19,14 @@ import androidx.fragment.app.FragmentContainerView;
 
 import com.vacash.android.models.User;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class HomePage extends AppCompatActivity {
 
     User user;
 
-    private TextView mobileTab, pcTab, consoleTab;
+    private TextView mobileTab, pcTab, consoleTab, userBalance;
 //    private final int selectedTabId = 1;
     Integer tab_id = 1;
     String tab_title = "Mobile";
@@ -47,6 +50,7 @@ public class HomePage extends AppCompatActivity {
         checkProfileButton = findViewById(R.id.checkProfileButton);
         logoutButton = findViewById(R.id.logoutButton);
         appLogoActionBar = findViewById(R.id.appLogoActionBar);
+        userBalance = findViewById(R.id.balance);
         slideDownAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slidedown);
         slideUpAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup);
 
@@ -57,6 +61,8 @@ public class HomePage extends AppCompatActivity {
 
         Intent loginActivity = getIntent();
         user = loginActivity.getParcelableExtra("userData");
+
+        setUserBalanceText(user.getBalance());
 
         dropdownMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,6 +149,10 @@ public class HomePage extends AppCompatActivity {
                 selectTab(3);
             }
         });
+    }
+
+    private void setUserBalanceText(Integer balance){
+        userBalance.setText(NumberFormat.getCurrencyInstance(new Locale("id", "ID")).format(balance).replace("Rp", ""));
     }
 
     private void selectTab(int position) {

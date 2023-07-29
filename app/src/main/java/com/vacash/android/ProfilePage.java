@@ -25,7 +25,9 @@ import com.vacash.android.adapters.PurchaseHistoryAdapter;
 import com.vacash.android.models.PurchaseHistory;
 import com.vacash.android.models.User;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
@@ -34,7 +36,7 @@ public class ProfilePage extends AppCompatActivity {
     User user;
     ScrollView scrollView;
     EditText usernameField, emailField, amountField;
-    TextView errorMsg;
+    TextView errorMsg, userBalance;
     Button topUpBtn;
 
 
@@ -75,6 +77,7 @@ public class ProfilePage extends AppCompatActivity {
         checkProfileButton = findViewById(R.id.checkProfileButton);
         logoutButton = findViewById(R.id.logoutButton);
         homeIconActionBar = findViewById(R.id.homeIconActionBar);
+        userBalance = findViewById(R.id.balance);
         slideDownAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slidedown);
         slideUpAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup);
 
@@ -85,6 +88,8 @@ public class ProfilePage extends AppCompatActivity {
 
         Intent previousActivity = getIntent();
         user = previousActivity.getParcelableExtra("userData");
+
+        setUserBalanceText(user.getBalance());
 
         scrollView = findViewById(R.id.scrollableView);
         usernameField = findViewById(R.id.usernameField);
@@ -170,6 +175,8 @@ public class ProfilePage extends AppCompatActivity {
 
                     user.addBalance(Integer.parseInt(amount));
                     amountField.setText("");
+
+                    setUserBalanceText(user.getBalance());
                 }
             }
         });
@@ -182,8 +189,7 @@ public class ProfilePage extends AppCompatActivity {
 
         RecyclerView purchaseHistoryRecycleView = findViewById(R.id.purchaseHistoryRecycleView);
         purchaseHistoryRecycleView.setLayoutManager(new LinearLayoutManager(this));
-        purchaseHistoryRecycleView.setAdapter(new PurchaseHistoryAdapter(
-                purchaseHistories));
+        purchaseHistoryRecycleView.setAdapter(new PurchaseHistoryAdapter(purchaseHistories));
     }
 
     @Override
@@ -206,5 +212,9 @@ public class ProfilePage extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    private void setUserBalanceText(Integer balance){
+        userBalance.setText(NumberFormat.getCurrencyInstance(new Locale("id", "ID")).format(balance).replace("Rp", ""));
     }
 }
