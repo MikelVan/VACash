@@ -10,16 +10,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vacash.android.R;
+import com.vacash.android.interfaces.ItemInterface;
 import com.vacash.android.models.Item;
 
 import java.util.List;
 
 public class ItemAdapter  extends RecyclerView.Adapter<ItemAdapter.ViewHolder>{
 
+    private final ItemInterface itemInterface;
     List<Item> items;
 
-    public ItemAdapter(List<Item> items) {
+    public ItemAdapter(List<Item> items, ItemInterface itemInterface) {
         this.items = items;
+        this.itemInterface = itemInterface;
     }
 
     @NonNull
@@ -55,6 +58,19 @@ public class ItemAdapter  extends RecyclerView.Adapter<ItemAdapter.ViewHolder>{
             shopName = itemView.findViewById(R.id.shopName);
             itemsName = itemView.findViewById(R.id.itemsName);
             itemsPrice = itemView.findViewById(R.id.itemsPrice);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(itemInterface != null){
+                        int pos = getBindingAdapterPosition();
+
+                        if(pos != RecyclerView.NO_POSITION){
+                            itemInterface.onItemClick(pos);
+                        }
+                    }
+                }
+            });
         }
 
     }

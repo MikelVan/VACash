@@ -2,7 +2,6 @@ package com.vacash.android;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,6 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -25,8 +25,9 @@ import com.vacash.android.adapters.PurchaseHistoryAdapter;
 import com.vacash.android.models.PurchaseHistory;
 import com.vacash.android.models.User;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Locale;
 
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
@@ -35,7 +36,7 @@ public class ProfilePage extends AppCompatActivity {
     User user;
     ScrollView scrollView;
     EditText usernameField, emailField, amountField;
-    TextView errorMsg;
+    TextView errorMsg, userBalance;
     Button topUpBtn;
 
 
@@ -68,7 +69,7 @@ public class ProfilePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_page);
 
-        action_bar = findViewById(R.id.action_bar);
+        action_bar = findViewById(R.id.actionBar);
         dropdownMenu = findViewById(R.id.dropdownMenu);
         dropdownList = findViewById(R.id.dropdownList);
         ppHighlight = findViewById(R.id.ppHighlight);
@@ -76,11 +77,19 @@ public class ProfilePage extends AppCompatActivity {
         checkProfileButton = findViewById(R.id.checkProfileButton);
         logoutButton = findViewById(R.id.logoutButton);
         homeIconActionBar = findViewById(R.id.homeIconActionBar);
+        userBalance = findViewById(R.id.balance);
         slideDownAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slidedown);
         slideUpAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup);
 
+        slideDownAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+        slideUpAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+
+        action_bar.bringToFront();
+
         Intent previousActivity = getIntent();
         user = previousActivity.getParcelableExtra("userData");
+
+        setUserBalanceText(user.getBalance());
 
         scrollView = findViewById(R.id.scrollableView);
         usernameField = findViewById(R.id.usernameField);
@@ -92,11 +101,10 @@ public class ProfilePage extends AppCompatActivity {
         dropdownMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                action_bar.bringToFront();
-                if (ppHighlight.getVisibility() == View.VISIBLE) {
-                    ppHighlight.setVisibility(View.INVISIBLE);
+                if (ppHighlight.getAlpha() == 0.0f) {
+                    ppHighlight.animate().alpha(1.0f).setDuration(500);
                 } else {
-                    ppHighlight.setVisibility(View.VISIBLE);
+                    ppHighlight.animate().alpha(0.0f).setDuration(500);
                 }
 
                 if (dropdownList.getVisibility() == View.VISIBLE) {
@@ -106,10 +114,11 @@ public class ProfilePage extends AppCompatActivity {
                     dropdownList.setVisibility(View.VISIBLE);
                     dropdownList.startAnimation(slideDownAnimation);
                 }
-                if (dark_overlay.getVisibility() == View.VISIBLE) {
-                    dark_overlay.setVisibility(View.INVISIBLE);
+
+                if (dark_overlay.getAlpha() == 0.0f) {
+                    dark_overlay.animate().alpha(1.0f).setDuration(500);
                 } else {
-                    dark_overlay.setVisibility(View.VISIBLE);
+                    dark_overlay.animate().alpha(0.0f).setDuration(500);
                 }
             }
         });
@@ -166,6 +175,8 @@ public class ProfilePage extends AppCompatActivity {
 
                     user.addBalance(Integer.parseInt(amount));
                     amountField.setText("");
+
+                    setUserBalanceText(user.getBalance());
                 }
             }
         });
@@ -178,8 +189,7 @@ public class ProfilePage extends AppCompatActivity {
 
         RecyclerView purchaseHistoryRecycleView = findViewById(R.id.purchaseHistoryRecycleView);
         purchaseHistoryRecycleView.setLayoutManager(new LinearLayoutManager(this));
-        purchaseHistoryRecycleView.setAdapter(new PurchaseHistoryAdapter(
-                purchaseHistories));
+        purchaseHistoryRecycleView.setAdapter(new PurchaseHistoryAdapter(purchaseHistories));
     }
 
     @Override
@@ -202,5 +212,9 @@ public class ProfilePage extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    private void setUserBalanceText(Integer balance){
+        userBalance.setText(NumberFormat.getCurrencyInstance(new Locale("id", "ID")).format(balance).replace("Rp", ""));
     }
 }

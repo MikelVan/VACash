@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <include
-            android:id="@+id/action_bar"
+            android:id="@+id/actionBar"
             layout="@layout/action_bar_home_button" />
 
         <androidx.constraintlayout.widget.ConstraintLayout

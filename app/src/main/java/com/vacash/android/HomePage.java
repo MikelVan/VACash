@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.View;
@@ -15,19 +17,20 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 
-import com.vacash.android.interfaces.GameInterface;
 import com.vacash.android.models.User;
+
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class HomePage extends AppCompatActivity {
 
     User user;
 
-    private TextView mobileTab, pcTab, consoleTab;
+    private TextView mobileTab, pcTab, consoleTab, userBalance;
 //    private final int selectedTabId = 1;
     Integer tab_id = 1;
     String tab_title = "Mobile";
     private FragmentContainerView gamePlatformFirstTabLayout, gamePlatformSecondTabLayout;
-    private Fragment gamePlatformSecondTabView;
     Integer activatedFragment = 1;
     private RelativeLayout action_bar, dropdownMenu, ppHighlight, dark_overlay;
     private LinearLayout dropdownList, checkProfileButton, logoutButton;
@@ -39,7 +42,7 @@ public class HomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-        action_bar = findViewById(R.id.action_bar);
+        action_bar = findViewById(R.id.actionBar);
         dropdownMenu = findViewById(R.id.dropdownMenu);
         dropdownList = findViewById(R.id.dropdownList);
         ppHighlight = findViewById(R.id.ppHighlight);
@@ -47,20 +50,27 @@ public class HomePage extends AppCompatActivity {
         checkProfileButton = findViewById(R.id.checkProfileButton);
         logoutButton = findViewById(R.id.logoutButton);
         appLogoActionBar = findViewById(R.id.appLogoActionBar);
+        userBalance = findViewById(R.id.balance);
         slideDownAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slidedown);
         slideUpAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup);
+
+        slideDownAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+        slideUpAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+
+        action_bar.bringToFront();
 
         Intent loginActivity = getIntent();
         user = loginActivity.getParcelableExtra("userData");
 
+        setUserBalanceText(user.getBalance());
+
         dropdownMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                action_bar.bringToFront();
-                if (ppHighlight.getVisibility() == View.VISIBLE) {
-                    ppHighlight.setVisibility(View.INVISIBLE);
+                if (ppHighlight.getAlpha() == 0.0f) {
+                    ppHighlight.animate().alpha(1.0f).setDuration(500);
                 } else {
-                    ppHighlight.setVisibility(View.VISIBLE);
+                    ppHighlight.animate().alpha(0.0f).setDuration(500);
                 }
 
                 if (dropdownList.getVisibility() == View.VISIBLE) {
@@ -70,10 +80,11 @@ public class HomePage extends AppCompatActivity {
                     dropdownList.setVisibility(View.VISIBLE);
                     dropdownList.startAnimation(slideDownAnimation);
                 }
-                if (dark_overlay.getVisibility() == View.VISIBLE) {
-                    dark_overlay.setVisibility(View.INVISIBLE);
+
+                if (dark_overlay.getAlpha() == 0.0f) {
+                    dark_overlay.animate().alpha(1.0f).setDuration(500);
                 } else {
-                    dark_overlay.setVisibility(View.VISIBLE);
+                    dark_overlay.animate().alpha(0.0f).setDuration(500);
                 }
             }
         });
@@ -104,12 +115,12 @@ public class HomePage extends AppCompatActivity {
             }
         });
 
-        gamePlatformFirstTabLayout = findViewById(R.id.gamePlatformFirstTabView);
-        gamePlatformSecondTabLayout = findViewById(R.id.gamePlatformSecondTabView);
+        gamePlatformFirstTabLayout = findViewById(R.id.gamePlatformFirstFragment);
+        gamePlatformSecondTabLayout = findViewById(R.id.gamePlatformSecondFragment);
 
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
-                .replace(R.id.gamePlatformFirstTabView, GameTab.newInstance(tab_id, tab_title), null)
+                .replace(R.id.gamePlatformFirstFragment, GameTab.newInstance(tab_id, tab_title), null)
                 .commit();
 
         mobileTab = findViewById(R.id.mobile_tab);
@@ -140,6 +151,10 @@ public class HomePage extends AppCompatActivity {
         });
     }
 
+    private void setUserBalanceText(Integer balance){
+        userBalance.setText(NumberFormat.getCurrencyInstance(new Locale("id", "ID")).format(balance).replace("Rp", ""));
+    }
+
     private void selectTab(int position) {
         switch (position) {
             case 1:
@@ -164,7 +179,7 @@ public class HomePage extends AppCompatActivity {
 
                 getSupportFragmentManager().beginTransaction()
                         .setReorderingAllowed(true)
-                        .replace(R.id.gamePlatformSecondTabView, GameTab.newInstance(tab_id, tab_title), null)
+                        .replace(R.id.gamePlatformSecondFragment, GameTab.newInstance(tab_id, tab_title), null)
                         .commit();
 
                 gamePlatformSecondTabLayout.bringToFront();
@@ -177,7 +192,7 @@ public class HomePage extends AppCompatActivity {
 
                 getSupportFragmentManager().beginTransaction()
                         .setReorderingAllowed(true)
-                        .replace(R.id.gamePlatformFirstTabView, GameTab.newInstance(tab_id, tab_title), null)
+                        .replace(R.id.gamePlatformFirstFragment, GameTab.newInstance(tab_id, tab_title), null)
                         .commit();
 
                 gamePlatformFirstTabLayout.bringToFront();
