@@ -60,7 +60,47 @@
                             android:text="Only for You"
                             android:textColor="@color/white"
                             android:textSize="20sp"/>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/carousel"
+                            android:layout_width="320dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="-100dp"
+                            android:background="#00000000">
+
+                            <com.vacash.android.customviews.CustomViewPager
+                                android:id="@+id/backgroundCarousel"
+                                android:layout_width="320dp"
+                                android:layout_height="200dp"
+                                android:layout_gravity="center"
+                                android:background="#00000000"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintBottom_toBottomOf="@+id/characterCarousel" />
+
+                            <ImageView
+                                android:id="@+id/characterCarousel"
+                                android:layout_width="320dp"
+                                android:layout_height="300dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/carousel1_character"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <com.vacash.android.customviews.CustomViewPager
+                                android:id="@+id/textCarousel"
+                                android:layout_width="320dp"
+                                android:layout_height="200dp"
+                                android:layout_gravity="center"
+                                android:background="#00000000"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintBottom_toBottomOf="@+id/characterCarousel" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
                     </LinearLayout>
+
                     <View
                         android:id="@+id/line1"
                         android:layout_width="320dp"

@@ -43,7 +43,7 @@ public class Carousel extends AppCompatActivity {
 //        string2List.add("https://www.pngmart.com/files/22/Background-PNG-HD-Isolated.png");
 //        string2List.add("https://static.vecteezy.com/system/resources/thumbnails/020/047/437/small/black-grunge-brush-isolated-png.png");
 
-        viewPager.setAdapter(new CarouselAdapter(this, stringList));
+//        viewPager.setAdapter(new CarouselAdapter(this, stringList));
 //        viewPager.setAdapter(new CarouselAdapter.CarouselAdapter2(this, string2List));
 
         autoImageSlide();

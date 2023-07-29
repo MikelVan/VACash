@@ -214,6 +214,10 @@ public class ProfilePage extends AppCompatActivity {
             }
         });
 
+        if (user.getPurchaseHistories().size() == 0){
+            findViewById(R.id.noData).setVisibility(View.VISIBLE);
+        }
+
         RecyclerView purchaseHistoryRecycleView = findViewById(R.id.purchaseHistoryRecycleView);
         purchaseHistoryRecycleView.setLayoutManager(new LinearLayoutManager(this));
         purchaseHistoryRecycleView.setAdapter(new PurchaseHistoryAdapter(user.getPurchaseHistories()));
