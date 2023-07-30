@@ -4,8 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.DragEvent;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.View;
@@ -13,35 +14,46 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.fragment.app.Fragment;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentContainerView;
+import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.tabs.TabLayout;
+import com.vacash.android.adapters.CarouselAdapter;
+import com.vacash.android.listeners.OnSwipeListener;
 import com.vacash.android.models.User;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class HomePage extends AppCompatActivity {
 
-    User user;
-
+    private User user;
+    ArrayList<Integer> listOfBg, listOfText, listOfCharacter;
     private TextView mobileTab, pcTab, consoleTab, userBalance;
-//    private final int selectedTabId = 1;
     Integer tab_id = 1;
     String tab_title = "Mobile";
     private FragmentContainerView gamePlatformFirstTabLayout, gamePlatformSecondTabLayout;
     Integer activatedFragment = 1;
+    private ViewPager bgCarousel, textCarousel;
     private RelativeLayout action_bar, dropdownMenu, ppHighlight, dark_overlay;
     private LinearLayout dropdownList, checkProfileButton, logoutButton;
-    private ImageView appLogoActionBar;
-    private Animation slideDownAnimation, slideUpAnimation;
+    private ConstraintLayout carouselLayout;
+    private ImageView appLogoActionBar, characterCarousel;
+    private Animation slideDownAnimation, slideUpAnimation, fadeInAnimation, fadeOutAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
+        // setting action bar
         action_bar = findViewById(R.id.actionBar);
         dropdownMenu = findViewById(R.id.dropdownMenu);
         dropdownList = findViewById(R.id.dropdownList);
@@ -53,6 +65,8 @@ public class HomePage extends AppCompatActivity {
         userBalance = findViewById(R.id.balance);
         slideDownAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slidedown);
         slideUpAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup);
+        fadeInAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadein);
+        fadeOutAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadeout);
 
         slideDownAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
         slideUpAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
@@ -62,15 +76,42 @@ public class HomePage extends AppCompatActivity {
         Intent loginActivity = getIntent();
         user = loginActivity.getParcelableExtra("userData");
 
-        setUserBalanceText(user.getBalance());
+        userBalance.setText(toCurrencyString(user.getBalance()));
+
+        dark_overlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dark_overlay.setEnabled(false);
+
+                ppHighlight.startAnimation(fadeOutAnimation);
+                ppHighlight.setVisibility(View.INVISIBLE);
+
+                if (dropdownList.getVisibility() == View.VISIBLE) {
+                    dropdownList.startAnimation(slideUpAnimation);
+                    dropdownList.setVisibility(View.INVISIBLE);
+                }
+
+                dark_overlay.startAnimation(fadeOutAnimation);
+                dark_overlay.setVisibility(View.INVISIBLE);
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        dark_overlay.setEnabled(true);
+                    }
+                }, 550);
+            }
+        });
 
         dropdownMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ppHighlight.getAlpha() == 0.0f) {
-                    ppHighlight.animate().alpha(1.0f).setDuration(500);
+                if (ppHighlight.getVisibility() == View.VISIBLE) {
+                    ppHighlight.startAnimation(fadeOutAnimation);
+                    ppHighlight.setVisibility(View.INVISIBLE);
                 } else {
-                    ppHighlight.animate().alpha(0.0f).setDuration(500);
+                    ppHighlight.setVisibility(View.VISIBLE);
+                    ppHighlight.startAnimation(fadeInAnimation);
                 }
 
                 if (dropdownList.getVisibility() == View.VISIBLE) {
@@ -81,10 +122,12 @@ public class HomePage extends AppCompatActivity {
                     dropdownList.startAnimation(slideDownAnimation);
                 }
 
-                if (dark_overlay.getAlpha() == 0.0f) {
-                    dark_overlay.animate().alpha(1.0f).setDuration(500);
+                if (dark_overlay.getVisibility() == View.VISIBLE) {
+                    dark_overlay.startAnimation(fadeOutAnimation);
+                    dark_overlay.setVisibility(View.INVISIBLE);
                 } else {
-                    dark_overlay.animate().alpha(0.0f).setDuration(500);
+                    dark_overlay.setVisibility(View.VISIBLE);
+                    dark_overlay.startAnimation(fadeInAnimation);
                 }
             }
         });
@@ -115,6 +158,94 @@ public class HomePage extends AppCompatActivity {
             }
         });
 
+        // setting carousel
+        carouselLayout = findViewById(R.id.carousel);
+        bgCarousel = findViewById(R.id.backgroundCarousel);
+        textCarousel = findViewById(R.id.textCarousel);
+        characterCarousel = findViewById(R.id.characterCarousel);
+
+        listOfBg = new ArrayList<>();
+        listOfBg.add(R.drawable.carousel1_bg);
+        listOfBg.add(R.drawable.carousel2_bg);
+        listOfBg.add(R.drawable.carousel3_bg);
+
+        bgCarousel.setAdapter(new CarouselAdapter(this, listOfBg));
+
+        listOfText = new ArrayList<>();
+        listOfText.add(R.drawable.carousel1_text);
+        listOfText.add(R.drawable.carousel2_text);
+        listOfText.add(R.drawable.carousel3_text);
+
+        textCarousel.setAdapter(new CarouselAdapter(this, listOfText));
+
+        listOfCharacter = new ArrayList<>();
+        listOfCharacter.add(R.drawable.carousel1_character);
+        listOfCharacter.add(R.drawable.carousel2_character);
+        listOfCharacter.add(R.drawable.carousel3_character);
+
+        final Handler handler = new Handler();
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                int nextPosition = (bgCarousel.getCurrentItem() + 1) % listOfBg.size();
+
+                bgCarousel.setCurrentItem(nextPosition);
+                textCarousel.setCurrentItem(nextPosition);
+
+                changeCharacter(nextPosition);
+            }
+        };
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(runnable);
+            }
+        }, 5000, 5000);
+
+        carouselLayout.setOnTouchListener(new OnSwipeListener(HomePage.this) {
+            public void onSwipeLeft() {
+                int nextPosition = (bgCarousel.getCurrentItem() + 1) % listOfBg.size();
+
+                bgCarousel.setCurrentItem(nextPosition);
+                textCarousel.setCurrentItem(nextPosition);
+
+                changeCharacter(nextPosition);
+
+                timer.cancel();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        handler.post(runnable);
+                    }
+                }, 5000, 5000);
+            }
+
+            public void onSwipeRight() {
+                int nextPosition = bgCarousel.getCurrentItem() - 1;
+
+                if (nextPosition < 0) {
+                    nextPosition = listOfBg.size() + nextPosition;
+                }
+
+                bgCarousel.setCurrentItem(nextPosition);
+                textCarousel.setCurrentItem(nextPosition);
+
+                changeCharacter(nextPosition);
+
+                timer.cancel();
+                // masih ga bisa mulai lagi
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        handler.post(runnable);
+                    }
+                }, 5000, 5000);
+            }
+        });
+
+        // setting tab view
         gamePlatformFirstTabLayout = findViewById(R.id.gamePlatformFirstFragment);
         gamePlatformSecondTabLayout = findViewById(R.id.gamePlatformSecondFragment);
 
@@ -151,8 +282,21 @@ public class HomePage extends AppCompatActivity {
         });
     }
 
-    private void setUserBalanceText(Integer balance){
-        userBalance.setText(NumberFormat.getCurrencyInstance(new Locale("id", "ID")).format(balance).replace("Rp", ""));
+    private String toCurrencyString(Integer value) {
+        return NumberFormat.getCurrencyInstance(new Locale("id", "ID")).format(value).replace("Rp", "");
+    }
+
+    private void changeCharacter(int position) {
+        Animation slideUpFromBottomAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup_frombottom);
+
+        characterCarousel.startAnimation(fadeOutAnimation);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                characterCarousel.setImageResource(listOfCharacter.get(position));
+                characterCarousel.startAnimation(slideUpFromBottomAnimation);
+            }
+        }, 400);
     }
 
     private void selectTab(int position) {

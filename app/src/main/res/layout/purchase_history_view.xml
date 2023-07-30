@@ -38,29 +38,35 @@
             app:layout_constraintTop_toBottomOf="@+id/gameName"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/itemQty"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:text="Qty"
-            android:textSize="12sp"
-            android:textColor="@color/white"
-            android:fontFamily="@font/poppins"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/itemName"/>
+            app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView
-            android:id="@+id/totalPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:text="Rp. xxx.xxx"
-            android:textSize="12sp"
-            android:textColor="@color/white"
-            android:fontFamily="@font/poppins"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/itemQty"/>
+            <TextView
+                android:id="@+id/itemQty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Qty"
+                android:textSize="12sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/poppins"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/totalPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rp. xxx.xxx"
+                android:textSize="12sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/poppins"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

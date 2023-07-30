@@ -16,5 +16,8 @@
 
     <color name="bg_navbar">#323232</color>
     <color name="dark_overlay">#66000000</color>
+    <color name="bg_popup">#2D2639</color>
+    <color name="popup_backdrop">#99000000</color>
+    <color name="popup_text">#ECE0FF</color>
     <color name="navbar_border">#726576</color>
 </resources>
