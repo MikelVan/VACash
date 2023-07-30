@@ -17,31 +17,31 @@
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteY="0dp">
 
-<!--        <ImageView-->
-<!--            android:id="@+id/imageViewBottom"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:scaleType="centerCrop" />-->
-
-<!--        &lt;!&ndash; The middle image &ndash;&gt;-->
-<!--        <ImageView-->
-<!--            android:id="@+id/imageViewMiddle"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:scaleType="centerCrop" />-->
-
-<!--        &lt;!&ndash; The top image &ndash;&gt;-->
-<!--        <ImageView-->
-<!--            android:id="@+id/imageViewTop"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:scaleType="centerCrop" />-->
-
         <ImageView
-            android:id="@+id/imageCarousel"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher_round" />
+            android:id="@+id/imageViewBottom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+        <!-- The middle image -->
+        <ImageView
+            android:id="@+id/imageViewMiddle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+        <!-- The top image -->
+        <ImageView
+            android:id="@+id/imageViewTop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+<!--        <ImageView-->
+<!--            android:id="@+id/imageCarousel"-->
+<!--            android:layout_width="320dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="@mipmap/ic_launcher_round" />-->
 
     </androidx.cardview.widget.CardView>
 

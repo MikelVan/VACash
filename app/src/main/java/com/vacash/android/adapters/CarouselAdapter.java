@@ -17,10 +17,10 @@ import java.util.List;
 public class CarouselAdapter extends PagerAdapter {
 
     Context context;
-//    List<List<String>> imageListCarousel;
-    List<String> imageListCarousel;
+    List<List<String>> imageListCarousel;
+//    List<String> imageListCarousel;
 
-    public CarouselAdapter(Context context, List<String> imageListCarousel) {
+    public CarouselAdapter(Context context, List<List<String>> imageListCarousel) {
         this.context = context;
         this.imageListCarousel = imageListCarousel;
     }
@@ -31,36 +31,40 @@ public class CarouselAdapter extends PagerAdapter {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View view = layoutInflater.inflate(R.layout.image_list_carousel, container, false);
-        final ImageView imageInCarousel = view.findViewById(R.id.imageCarousel);
-//        final ImageView imageInCarouselBottom = view.findViewById(R.id.imageViewBottom);
-//        final ImageView imageInCarouselMiddle = view.findViewById(R.id.imageViewMiddle);
-//        final ImageView imageInCarouselTop = view.findViewById(R.id.imageViewTop);
+//        final ImageView imageInCarousel = view.findViewById(R.id.imageCarousel);
+        final ImageView imageInCarouselBottom = view.findViewById(R.id.imageViewBottom);
+        final ImageView imageInCarouselMiddle = view.findViewById(R.id.imageViewMiddle);
+        final ImageView imageInCarouselTop = view.findViewById(R.id.imageViewTop);
 
-//        List<String> imagesForCurrentItem = imageListCarousel.get(position);
+        List<String> imagesForCurrentItem = imageListCarousel.get(position);
+
+//        Glide.with(context)
+//                .load(imageListCarousel .get(position))
+//                .into(imageInCarousel);
 
         Glide.with(context)
-                .load(imageListCarousel.get(position))
-                .into(imageInCarousel);
+                .load(imagesForCurrentItem.get(0))
+                .into(imageInCarouselBottom);
 
-//        Glide.with(context)
-//                .load(imagesForCurrentItem.get(0))
-//                .into(imageInCarouselBottom);
-//
-//        Glide.with(context)
-//                .load(imagesForCurrentItem.get(1))
-//                .into(imageInCarouselMiddle);
-//
-//        Glide.with(context)
-//                .load(imagesForCurrentItem.get(2))
-//                .into(imageInCarouselTop);
+        Glide.with(context)
+                .load(imagesForCurrentItem.get(1))
+                .into(imageInCarouselMiddle);
+
+        Glide.with(context)
+                .load(imagesForCurrentItem.get(2))
+                .into(imageInCarouselTop);
 
         container.addView(view);
         return view;
     }
-
+    @Override
+    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+        container.removeView((View) object);
+    }
     @Override
     public int getCount() {
         return imageListCarousel.size();
+//        return imageListCarousel.length;
     }
 
     @Override
@@ -68,9 +72,6 @@ public class CarouselAdapter extends PagerAdapter {
         return view == object;
     }
 
-    @Override
-    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        container.removeView((View) object);
-    }
+
 }
 
