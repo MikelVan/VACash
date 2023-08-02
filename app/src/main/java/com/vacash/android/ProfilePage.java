@@ -23,16 +23,18 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.vacash.android.adapters.PurchaseHistoryAdapter;
+import com.vacash.android.interfaces.RecyclerViewInterface;
 import com.vacash.android.models.PurchaseHistory;
 import com.vacash.android.models.User;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
-public class ProfilePage extends AppCompatActivity {
+public class ProfilePage extends AppCompatActivity implements RecyclerViewInterface {
 
     User user;
     ScrollView scrollView;
@@ -220,7 +222,7 @@ public class ProfilePage extends AppCompatActivity {
 
         RecyclerView purchaseHistoryRecycleView = findViewById(R.id.purchaseHistoryRecycleView);
         purchaseHistoryRecycleView.setLayoutManager(new LinearLayoutManager(this));
-        purchaseHistoryRecycleView.setAdapter(new PurchaseHistoryAdapter(user.getPurchaseHistories()));
+        purchaseHistoryRecycleView.setAdapter(new PurchaseHistoryAdapter(user.getPurchaseHistories(), this));
     }
 
     @Override
@@ -247,5 +249,16 @@ public class ProfilePage extends AppCompatActivity {
 
     private void setUserBalanceText(Integer balance){
         userBalance.setText(NumberFormat.getCurrencyInstance(new Locale("id", "ID")).format(balance).replace("Rp", ""));
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent itemActivity = new Intent(ProfilePage.this, ItemPage.class);
+        itemActivity.putExtra("userData", user);
+        itemActivity.putExtra("gameLogo", user.getPurchaseHistories().get(position).getGameLogo());
+        itemActivity.putExtra("gameName", user.getPurchaseHistories().get(position).getGameName());
+        itemActivity.putExtra("gameDeveloper", user.getPurchaseHistories().get(position).getGameDeveloper());
+        itemActivity.putExtra("gameCategory", user.getPurchaseHistories().get(position).getGameCategory());
+        startActivity(itemActivity);
     }
 }

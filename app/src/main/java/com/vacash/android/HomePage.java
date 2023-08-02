@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.DragEvent;
+import android.view.MotionEvent;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -16,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.viewpager.widget.ViewPager;
@@ -35,12 +37,14 @@ import java.util.TimerTask;
 public class HomePage extends AppCompatActivity {
 
     private User user;
+    private static Timer timer;
     ArrayList<Integer> listOfBg, listOfText, listOfCharacter;
-    private TextView mobileTab, pcTab, consoleTab, userBalance;
+    private TextView welcomeTextView, mobileTab, pcTab, consoleTab, userBalance;
     Integer tab_id = 1;
     String tab_title = "Mobile";
     private FragmentContainerView gamePlatformFirstTabLayout, gamePlatformSecondTabLayout;
     Integer activatedFragment = 1;
+    private View carouselBtn1, carouselBtn2, carouselBtn3;
     private ViewPager bgCarousel, textCarousel;
     private RelativeLayout action_bar, dropdownMenu, ppHighlight, dark_overlay;
     private LinearLayout dropdownList, checkProfileButton, logoutButton;
@@ -141,11 +145,39 @@ public class HomePage extends AppCompatActivity {
             }
         });
 
+        checkProfileButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    checkProfileButton.setBackground(AppCompatResources.getDrawable(getApplicationContext(), R.drawable.bg_dropdown1_touchdown));
+                }
+                else{
+                    checkProfileButton.setBackground(AppCompatResources.getDrawable(getApplicationContext(), R.drawable.bg_dropdown1));
+                }
+
+                return false;
+            }
+        });
+
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent loginActivity = new Intent(HomePage.this, LoginPage.class);
                 startActivity(loginActivity);
+            }
+        });
+
+        logoutButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    logoutButton.setBackground(AppCompatResources.getDrawable(getApplicationContext(), R.drawable.bg_dropdown2_touchdown));
+                }
+                else{
+                    logoutButton.setBackground(AppCompatResources.getDrawable(getApplicationContext(), R.drawable.bg_dropdown2));
+                }
+
+                return false;
             }
         });
 
@@ -157,6 +189,10 @@ public class HomePage extends AppCompatActivity {
                 startActivity(homeActivity);
             }
         });
+
+        // setting welcome message
+        welcomeTextView = findViewById(R.id.welcomeMessage);
+        welcomeTextView.setText("Welcome back, " + capitalizeFirstLetter(user.getUsername()));
 
         // setting carousel
         carouselLayout = findViewById(R.id.carousel);
@@ -193,10 +229,11 @@ public class HomePage extends AppCompatActivity {
                 textCarousel.setCurrentItem(nextPosition);
 
                 changeCharacter(nextPosition);
+                changeActiveBullet(nextPosition);
             }
         };
 
-        Timer timer = new Timer();
+        timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -212,8 +249,10 @@ public class HomePage extends AppCompatActivity {
                 textCarousel.setCurrentItem(nextPosition);
 
                 changeCharacter(nextPosition);
+                changeActiveBullet(nextPosition);
 
                 timer.cancel();
+                timer = new Timer();
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
@@ -233,9 +272,74 @@ public class HomePage extends AppCompatActivity {
                 textCarousel.setCurrentItem(nextPosition);
 
                 changeCharacter(nextPosition);
+                changeActiveBullet(nextPosition);
 
                 timer.cancel();
-                // masih ga bisa mulai lagi
+                timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        handler.post(runnable);
+                    }
+                }, 5000, 5000);
+            }
+        });
+
+        carouselBtn1 = findViewById(R.id.bullet1);
+        carouselBtn2 = findViewById(R.id.bullet2);
+        carouselBtn3 = findViewById(R.id.bullet3);
+
+        carouselBtn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bgCarousel.setCurrentItem(0);
+                textCarousel.setCurrentItem(0);
+
+                changeCharacter(0);
+                changeActiveBullet(0);
+
+                timer.cancel();
+                timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        handler.post(runnable);
+                    }
+                }, 5000, 5000);
+            }
+        });
+
+        carouselBtn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bgCarousel.setCurrentItem(1);
+                textCarousel.setCurrentItem(1);
+
+                changeCharacter(1);
+                changeActiveBullet(1);
+
+                timer.cancel();
+                timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        handler.post(runnable);
+                    }
+                }, 5000, 5000);
+            }
+        });
+
+        carouselBtn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bgCarousel.setCurrentItem(2);
+                textCarousel.setCurrentItem(2);
+
+                changeCharacter(2);
+                changeActiveBullet(2);
+
+                timer.cancel();
+                timer = new Timer();
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
@@ -286,6 +390,11 @@ public class HomePage extends AppCompatActivity {
         return NumberFormat.getCurrencyInstance(new Locale("id", "ID")).format(value).replace("Rp", "");
     }
 
+    private String capitalizeFirstLetter(String string){
+        return string.substring(0, 1).toUpperCase() + string.substring(1);
+    }
+
+
     private void changeCharacter(int position) {
         Animation slideUpFromBottomAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup_frombottom);
 
@@ -297,6 +406,25 @@ public class HomePage extends AppCompatActivity {
                 characterCarousel.startAnimation(slideUpFromBottomAnimation);
             }
         }, 400);
+    }
+
+    private void changeActiveBullet(int position){
+        switch (position){
+            case 0:
+                carouselBtn1.setBackground(AppCompatResources.getDrawable(getApplicationContext() ,R.drawable.carousel_bullet_active));
+                carouselBtn2.setBackground(AppCompatResources.getDrawable(getApplicationContext() ,R.drawable.carousel_bullet));
+                carouselBtn3.setBackground(AppCompatResources.getDrawable(getApplicationContext() ,R.drawable.carousel_bullet));
+                break;
+            case 1:
+                carouselBtn2.setBackground(AppCompatResources.getDrawable(getApplicationContext() ,R.drawable.carousel_bullet_active));
+                carouselBtn1.setBackground(AppCompatResources.getDrawable(getApplicationContext() ,R.drawable.carousel_bullet));
+                carouselBtn3.setBackground(AppCompatResources.getDrawable(getApplicationContext() ,R.drawable.carousel_bullet));
+                break;
+            case 2:
+                carouselBtn3.setBackground(AppCompatResources.getDrawable(getApplicationContext() ,R.drawable.carousel_bullet_active));
+                carouselBtn1.setBackground(AppCompatResources.getDrawable(getApplicationContext() ,R.drawable.carousel_bullet));
+                carouselBtn2.setBackground(AppCompatResources.getDrawable(getApplicationContext() ,R.drawable.carousel_bullet));
+        }
     }
 
     private void selectTab(int position) {

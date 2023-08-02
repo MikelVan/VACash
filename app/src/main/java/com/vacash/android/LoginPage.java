@@ -78,7 +78,6 @@ public class LoginPage extends AppCompatActivity {
                     homeActivity.putExtra("userData", user);
 
                     startActivity(homeActivity);
-                    Toast.makeText(LoginPage.this, "Welcome " + user.getUsername(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

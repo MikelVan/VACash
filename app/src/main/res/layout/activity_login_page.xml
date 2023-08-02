@@ -107,6 +107,7 @@
             android:text="Error"
             android:textColor="@color/text_danger"
             android:fontFamily="@font/poppins"
+            android:alpha="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/passwordField" />
 

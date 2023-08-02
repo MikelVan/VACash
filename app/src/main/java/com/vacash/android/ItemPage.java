@@ -16,10 +16,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.vacash.android.adapters.ItemAdapter;
-import com.vacash.android.interfaces.ItemInterface;
+import com.vacash.android.interfaces.RecyclerViewInterface;
 import com.vacash.android.models.Item;
 import com.vacash.android.models.User;
 
@@ -29,11 +28,12 @@ import java.util.Locale;
 
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
-public class ItemPage extends AppCompatActivity implements ItemInterface {
+public class ItemPage extends AppCompatActivity implements RecyclerViewInterface {
 
     private User user;
-    private String gameName;
-    private ImageView gameLogo;
+    private String gameName, gameDeveloper, gameCategory;
+    private Integer gameLogo;
+    private ImageView gameLogoView;
     private TextView gameNameView, gameDeveloperView, gameCategoryView, userBalance;
     private RelativeLayout action_bar, dropdownMenu, ppHighlight, dark_overlay;
     private LinearLayout dropdownList, checkProfileButton, logoutButton;
@@ -155,17 +155,20 @@ public class ItemPage extends AppCompatActivity implements ItemInterface {
 
         OverScrollDecoratorHelper.setUpOverScroll(scrollView);
 
-        gameLogo = findViewById(R.id.gameLogoView);
+        gameLogoView = findViewById(R.id.gameLogoView);
         gameNameView = findViewById(R.id.gameNameView);
         gameDeveloperView = findViewById(R.id.gameDeveloperView);
         gameCategoryView = findViewById(R.id.gameCategoryView);
 
+        gameLogo = previousPage.getIntExtra("gameLogo", 0);
         gameName = previousPage.getStringExtra("gameName");
+        gameDeveloper = previousPage.getStringExtra("gameDeveloper");
+        gameCategory = previousPage.getStringExtra("gameCategory");
 
-        gameLogo.setImageResource(previousPage.getIntExtra("gameLogo", 0));
-        gameNameView.setText(previousPage.getStringExtra("gameName"));
-        gameDeveloperView.setText(previousPage.getStringExtra("gameDeveloper"));
-        gameCategoryView.setText(previousPage.getStringExtra("gameCategory"));
+        gameLogoView.setImageResource(gameLogo);
+        gameNameView.setText(gameName);
+        gameDeveloperView.setText(gameDeveloper);
+        gameCategoryView.setText(gameCategory);
 
         listOfItems = new ArrayList<>();
 
@@ -240,6 +243,9 @@ public class ItemPage extends AppCompatActivity implements ItemInterface {
         detailActivity.putExtra("userData", user);
         detailActivity.putExtra("itemData", listOfItems.get(position));
         detailActivity.putExtra("gameName", gameName);
+        detailActivity.putExtra("gameDeveloper", gameDeveloper);
+        detailActivity.putExtra("gameCategory", gameCategory);
+        detailActivity.putExtra("gameLogo", gameLogo);
         startActivity(detailActivity);
     }
 }

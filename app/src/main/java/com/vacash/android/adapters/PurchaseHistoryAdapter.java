@@ -9,16 +9,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vacash.android.R;
+import com.vacash.android.interfaces.RecyclerViewInterface;
 import com.vacash.android.models.PurchaseHistory;
 
 import java.util.List;
 
 public class PurchaseHistoryAdapter extends RecyclerView.Adapter<PurchaseHistoryAdapter.ViewHolder> {
 
+    private final RecyclerViewInterface recyclerViewInterface;
     List<PurchaseHistory> purchaseHistories;
 
-    public PurchaseHistoryAdapter(List<PurchaseHistory> purchaseHistories) {
+    public PurchaseHistoryAdapter(List<PurchaseHistory> purchaseHistories, RecyclerViewInterface recyclerViewInterface) {
         this.purchaseHistories = purchaseHistories;
+        this.recyclerViewInterface = recyclerViewInterface;
     }
 
     @NonNull
@@ -55,6 +58,19 @@ public class PurchaseHistoryAdapter extends RecyclerView.Adapter<PurchaseHistory
             itemNameView = purchaseHistoryView.findViewById(R.id.itemName);
             itemQtyView = purchaseHistoryView.findViewById(R.id.itemQty);
             totalPriceView = purchaseHistoryView.findViewById(R.id.totalPrice);
+
+            purchaseHistoryView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(recyclerViewInterface != null){
+                        int pos = getBindingAdapterPosition();
+
+                        if(pos != RecyclerView.NO_POSITION){
+                            recyclerViewInterface.onItemClick(pos);
+                        }
+                    }
+                }
+            });
         }
 
     }

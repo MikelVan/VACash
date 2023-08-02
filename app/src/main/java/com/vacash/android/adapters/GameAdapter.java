@@ -10,24 +10,24 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vacash.android.R;
-import com.vacash.android.interfaces.GameInterface;
+import com.vacash.android.interfaces.RecyclerViewInterface;
 import com.vacash.android.models.Game;
 
 import java.util.List;
 
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
-    private final GameInterface gameInterface;
+    private final RecyclerViewInterface recyclerViewInterface;
     List<Game> games;
 
-    public GameAdapter(List<Game> games, GameInterface gameInterface) {
+    public GameAdapter(List<Game> games, RecyclerViewInterface recyclerViewInterface) {
         this.games = games;
-        this.gameInterface = gameInterface;
+        this.recyclerViewInterface = recyclerViewInterface;
     }
 
     @NonNull
     @Override
     public GameAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.game_view, parent, false), gameInterface);
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.game_view, parent, false));
     }
 
     @Override
@@ -47,7 +47,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
         ImageView gameLogo;
         TextView gameTitleView, gameDeveloperView;
 
-        public ViewHolder(@NonNull View gameView, GameInterface gameInterface) {
+        public ViewHolder(@NonNull View gameView) {
             super(gameView);
 
             gameLogo = gameView.findViewById(R.id.gameLogo);
@@ -57,11 +57,11 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
             gameView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(gameInterface != null){
+                    if(recyclerViewInterface != null){
                         int pos = getBindingAdapterPosition();
 
                         if(pos != RecyclerView.NO_POSITION){
-                            gameInterface.onItemClick(pos);
+                            recyclerViewInterface.onItemClick(pos);
                         }
                     }
                 }
