@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.viewpager.widget.ViewPager;
@@ -41,6 +42,7 @@ public class HomePage extends AppCompatActivity {
     String tab_title = "Mobile";
     private FragmentContainerView gamePlatformFirstTabLayout, gamePlatformSecondTabLayout;
     Integer activatedFragment = 1;
+    private View carouselBtn1, carouselBtn2, carouselBtn3;
     private ViewPager bgCarousel, textCarousel;
     private RelativeLayout action_bar, dropdownMenu, ppHighlight, dark_overlay;
     private LinearLayout dropdownList, checkProfileButton, logoutButton;
@@ -193,6 +195,7 @@ public class HomePage extends AppCompatActivity {
                 textCarousel.setCurrentItem(nextPosition);
 
                 changeCharacter(nextPosition);
+                changeActiveBullet(nextPosition);
             }
         };
 
@@ -212,8 +215,8 @@ public class HomePage extends AppCompatActivity {
                 textCarousel.setCurrentItem(nextPosition);
 
                 changeCharacter(nextPosition);
+                changeActiveBullet(nextPosition);
 
-                timer.cancel();
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
@@ -233,9 +236,66 @@ public class HomePage extends AppCompatActivity {
                 textCarousel.setCurrentItem(nextPosition);
 
                 changeCharacter(nextPosition);
+                changeCharacter(nextPosition);
 
-                timer.cancel();
-                // masih ga bisa mulai lagi
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        handler.post(runnable);
+                    }
+                }, 5000, 5000);
+            }
+        });
+
+        carouselBtn1 = findViewById(R.id.bullet1);
+        carouselBtn2 = findViewById(R.id.bullet2);
+        carouselBtn3 = findViewById(R.id.bullet3);
+
+        carouselBtn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bgCarousel.setCurrentItem(0);
+                textCarousel.setCurrentItem(0);
+
+                changeCharacter(0);
+                changeActiveBullet(0);
+
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        handler.post(runnable);
+                    }
+                }, 5000, 5000);
+            }
+        });
+
+        carouselBtn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bgCarousel.setCurrentItem(1);
+                textCarousel.setCurrentItem(1);
+
+                changeCharacter(1);
+                changeActiveBullet(1);
+
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        handler.post(runnable);
+                    }
+                }, 5000, 5000);
+            }
+        });
+
+        carouselBtn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bgCarousel.setCurrentItem(2);
+                textCarousel.setCurrentItem(2);
+
+                changeCharacter(2);
+                changeActiveBullet(2);
+
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
@@ -297,6 +357,25 @@ public class HomePage extends AppCompatActivity {
                 characterCarousel.startAnimation(slideUpFromBottomAnimation);
             }
         }, 400);
+    }
+
+    private void changeActiveBullet(int position){
+        switch (position){
+            case 0:
+                carouselBtn1.setBackground(AppCompatResources.getDrawable(getApplicationContext() ,R.drawable.carousel_bullet_active));
+                carouselBtn2.setBackground(AppCompatResources.getDrawable(getApplicationContext() ,R.drawable.carousel_bullet));
+                carouselBtn3.setBackground(AppCompatResources.getDrawable(getApplicationContext() ,R.drawable.carousel_bullet));
+                break;
+            case 1:
+                carouselBtn2.setBackground(AppCompatResources.getDrawable(getApplicationContext() ,R.drawable.carousel_bullet_active));
+                carouselBtn1.setBackground(AppCompatResources.getDrawable(getApplicationContext() ,R.drawable.carousel_bullet));
+                carouselBtn3.setBackground(AppCompatResources.getDrawable(getApplicationContext() ,R.drawable.carousel_bullet));
+                break;
+            case 2:
+                carouselBtn3.setBackground(AppCompatResources.getDrawable(getApplicationContext() ,R.drawable.carousel_bullet_active));
+                carouselBtn1.setBackground(AppCompatResources.getDrawable(getApplicationContext() ,R.drawable.carousel_bullet));
+                carouselBtn2.setBackground(AppCompatResources.getDrawable(getApplicationContext() ,R.drawable.carousel_bullet));
+        }
     }
 
     private void selectTab(int position) {

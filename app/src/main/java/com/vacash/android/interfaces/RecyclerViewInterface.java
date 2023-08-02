@@ -1,6 +1,6 @@
 package com.vacash.android.interfaces;
 
-public interface GameInterface {
+public interface RecyclerViewInterface {
 
     void onItemClick(int position);
 

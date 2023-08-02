@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vacash.android.R;
-import com.vacash.android.interfaces.ItemInterface;
+import com.vacash.android.interfaces.RecyclerViewInterface;
 import com.vacash.android.models.Item;
 
 import java.text.NumberFormat;
@@ -19,12 +19,12 @@ import java.util.Locale;
 
 public class ItemAdapter  extends RecyclerView.Adapter<ItemAdapter.ViewHolder>{
 
-    private final ItemInterface itemInterface;
+    private final RecyclerViewInterface recyclerViewInterface;
     List<Item> items;
 
-    public ItemAdapter(List<Item> items, ItemInterface itemInterface) {
+    public ItemAdapter(List<Item> items, RecyclerViewInterface recyclerViewInterface) {
         this.items = items;
-        this.itemInterface = itemInterface;
+        this.recyclerViewInterface = recyclerViewInterface;
     }
 
     @NonNull
@@ -68,11 +68,11 @@ public class ItemAdapter  extends RecyclerView.Adapter<ItemAdapter.ViewHolder>{
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(itemInterface != null){
+                    if(recyclerViewInterface != null){
                         int pos = getBindingAdapterPosition();
 
                         if(pos != RecyclerView.NO_POSITION){
-                            itemInterface.onItemClick(pos);
+                            recyclerViewInterface.onItemClick(pos);
                         }
                     }
                 }

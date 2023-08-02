@@ -11,20 +11,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
-import android.widget.Toast;
 
 import com.vacash.android.adapters.GameAdapter;
-import com.vacash.android.interfaces.GameInterface;
+import com.vacash.android.interfaces.RecyclerViewInterface;
 import com.vacash.android.models.Game;
 import com.vacash.android.models.User;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
-public class GameTab extends Fragment implements GameInterface {
+public class GameTab extends Fragment implements RecyclerViewInterface {
     private Integer tab_id;
     private String tab_title;
 
@@ -105,10 +103,6 @@ public class GameTab extends Fragment implements GameInterface {
         }
 
         User user = getActivity().getIntent().getParcelableExtra("userData");
-        List<String> gameDetail = new ArrayList<>();
-        gameDetail.add(games.get(position).getGameTitle());
-        gameDetail.add(games.get(position).getGameDeveloper());
-        gameDetail.add(gameCategory);
 
         Intent itemActivity = new Intent(getActivity(), ItemPage.class);
         itemActivity.putExtra("userData", user);

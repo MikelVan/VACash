@@ -29,8 +29,8 @@ public class DetailPage extends AppCompatActivity {
 
     private User user;
     private Item item;
-    private Integer itemQty;
-    private String gameName;
+    private Integer itemQty, gameLogo;
+    private String gameName, gameDeveloper, gameCategory;
     private TextView userBalance, itemNameView, gameNameView, itemPriceView, itemQuantityView, errorTitleView, errorMessageView, confirmMessageView;
     private EditText userNameField, emailField;
     private RelativeLayout action_bar, dropdownMenu, ppHighlight, dark_overlay;
@@ -154,6 +154,9 @@ public class DetailPage extends AppCompatActivity {
 
         item = previousPage.getParcelableExtra("itemData");
         gameName = previousPage.getStringExtra("gameName");
+        gameDeveloper = previousPage.getStringExtra("gameDeveloper");
+        gameCategory = previousPage.getStringExtra("gameCategory");
+        gameLogo = previousPage.getIntExtra("gameLogo", 0);
 
         itemImageView.setImageResource(item.getItemsImage());
         itemNameView.setText(item.getItemsName());
@@ -261,7 +264,7 @@ public class DetailPage extends AppCompatActivity {
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PurchaseHistory purchaseHistory = new PurchaseHistory(gameName, item.getItemsName(), itemQty, itemQty * item.getItemsPrice());
+                PurchaseHistory purchaseHistory = new PurchaseHistory(gameName, item.getItemsName(), itemQty, itemQty * item.getItemsPrice(), gameDeveloper, gameCategory, gameLogo);
                 user.addPurchaseHistories(purchaseHistory);
                 user.reduceBalance(itemQty * item.getItemsPrice());
                 enableButtons();
