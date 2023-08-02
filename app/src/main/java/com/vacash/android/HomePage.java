@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.DragEvent;
+import android.view.MotionEvent;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -36,8 +37,9 @@ import java.util.TimerTask;
 public class HomePage extends AppCompatActivity {
 
     private User user;
+    private static Timer timer;
     ArrayList<Integer> listOfBg, listOfText, listOfCharacter;
-    private TextView mobileTab, pcTab, consoleTab, userBalance;
+    private TextView welcomeTextView, mobileTab, pcTab, consoleTab, userBalance;
     Integer tab_id = 1;
     String tab_title = "Mobile";
     private FragmentContainerView gamePlatformFirstTabLayout, gamePlatformSecondTabLayout;
@@ -143,11 +145,39 @@ public class HomePage extends AppCompatActivity {
             }
         });
 
+        checkProfileButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    checkProfileButton.setBackground(AppCompatResources.getDrawable(getApplicationContext(), R.drawable.bg_dropdown1_touchdown));
+                }
+                else{
+                    checkProfileButton.setBackground(AppCompatResources.getDrawable(getApplicationContext(), R.drawable.bg_dropdown1));
+                }
+
+                return false;
+            }
+        });
+
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent loginActivity = new Intent(HomePage.this, LoginPage.class);
                 startActivity(loginActivity);
+            }
+        });
+
+        logoutButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    logoutButton.setBackground(AppCompatResources.getDrawable(getApplicationContext(), R.drawable.bg_dropdown2_touchdown));
+                }
+                else{
+                    logoutButton.setBackground(AppCompatResources.getDrawable(getApplicationContext(), R.drawable.bg_dropdown2));
+                }
+
+                return false;
             }
         });
 
@@ -159,6 +189,10 @@ public class HomePage extends AppCompatActivity {
                 startActivity(homeActivity);
             }
         });
+
+        // setting welcome message
+        welcomeTextView = findViewById(R.id.welcomeMessage);
+        welcomeTextView.setText("Welcome back, " + capitalizeFirstLetter(user.getUsername()));
 
         // setting carousel
         carouselLayout = findViewById(R.id.carousel);
@@ -199,7 +233,7 @@ public class HomePage extends AppCompatActivity {
             }
         };
 
-        Timer timer = new Timer();
+        timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -217,6 +251,8 @@ public class HomePage extends AppCompatActivity {
                 changeCharacter(nextPosition);
                 changeActiveBullet(nextPosition);
 
+                timer.cancel();
+                timer = new Timer();
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
@@ -238,6 +274,8 @@ public class HomePage extends AppCompatActivity {
                 changeCharacter(nextPosition);
                 changeCharacter(nextPosition);
 
+                timer.cancel();
+                timer = new Timer();
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
@@ -260,6 +298,8 @@ public class HomePage extends AppCompatActivity {
                 changeCharacter(0);
                 changeActiveBullet(0);
 
+                timer.cancel();
+                timer = new Timer();
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
@@ -278,6 +318,8 @@ public class HomePage extends AppCompatActivity {
                 changeCharacter(1);
                 changeActiveBullet(1);
 
+                timer.cancel();
+                timer = new Timer();
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
@@ -296,6 +338,8 @@ public class HomePage extends AppCompatActivity {
                 changeCharacter(2);
                 changeActiveBullet(2);
 
+                timer.cancel();
+                timer = new Timer();
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
@@ -345,6 +389,11 @@ public class HomePage extends AppCompatActivity {
     private String toCurrencyString(Integer value) {
         return NumberFormat.getCurrencyInstance(new Locale("id", "ID")).format(value).replace("Rp", "");
     }
+
+    private String capitalizeFirstLetter(String string){
+        return string.substring(0, 1).toUpperCase() + string.substring(1);
+    }
+
 
     private void changeCharacter(int position) {
         Animation slideUpFromBottomAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup_frombottom);
