@@ -77,6 +77,8 @@ public class GameTab extends Fragment implements RecyclerViewInterface {
                 break;
         }
 
+//        System.out.println(games);
+
         RecyclerView gameRecycleView = view.findViewById(R.id.gameRecycleView);
         gameRecycleView.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false));
         gameRecycleView.setAdapter(new GameAdapter(games, this));

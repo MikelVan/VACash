@@ -27,7 +27,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
     @NonNull
     @Override
     public GameAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.game_view, parent, false));
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.game_view, parent, false), recyclerViewInterface);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
         ImageView gameLogo;
         TextView gameTitleView, gameDeveloperView;
 
-        public ViewHolder(@NonNull View gameView) {
+        public ViewHolder(@NonNull View gameView, RecyclerViewInterface recyclerViewInterface) {
             super(gameView);
 
             gameLogo = gameView.findViewById(R.id.gameLogo);

@@ -192,7 +192,7 @@ public class HomePage extends AppCompatActivity {
 
         // setting welcome message
         welcomeTextView = findViewById(R.id.welcomeMessage);
-        welcomeTextView.setText("Welcome back, " + capitalizeFirstLetter(user.getUsername()));
+        welcomeTextView.setText("Welcome back, " + user.getUsername());
 
         // setting carousel
         carouselLayout = findViewById(R.id.carousel);
@@ -389,11 +389,6 @@ public class HomePage extends AppCompatActivity {
     private String toCurrencyString(Integer value) {
         return NumberFormat.getCurrencyInstance(new Locale("id", "ID")).format(value).replace("Rp", "");
     }
-
-    private String capitalizeFirstLetter(String string){
-        return string.substring(0, 1).toUpperCase() + string.substring(1);
-    }
-
 
     private void changeCharacter(int position) {
         Animation slideUpFromBottomAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup_frombottom);

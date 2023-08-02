@@ -70,7 +70,7 @@ public class LoginPage extends AppCompatActivity {
                 } else {
                     Intent homeActivity = new Intent(LoginPage.this, HomePage.class);
 
-                    String username = email.substring(0, email.indexOf('@'));
+                    String username = capitalizeFirstLetter(email.substring(0, email.indexOf('@')));
                     Integer balance = 0;
                     ArrayList<PurchaseHistory> purchaseHistories = new ArrayList<>();
 
@@ -81,5 +81,9 @@ public class LoginPage extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private String capitalizeFirstLetter(String string){
+        return string.substring(0, 1).toUpperCase() + string.substring(1);
     }
 }

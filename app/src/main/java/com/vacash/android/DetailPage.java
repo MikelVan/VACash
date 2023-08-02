@@ -1,11 +1,13 @@
 package com.vacash.android;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
@@ -132,11 +134,39 @@ public class DetailPage extends AppCompatActivity {
             }
         });
 
+        checkProfileButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    checkProfileButton.setBackground(AppCompatResources.getDrawable(getApplicationContext(), R.drawable.bg_dropdown1_touchdown));
+                }
+                else{
+                    checkProfileButton.setBackground(AppCompatResources.getDrawable(getApplicationContext(), R.drawable.bg_dropdown1));
+                }
+
+                return false;
+            }
+        });
+
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent loginActivity = new Intent(DetailPage.this, LoginPage.class);
                 startActivity(loginActivity);
+            }
+        });
+
+        logoutButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    logoutButton.setBackground(AppCompatResources.getDrawable(getApplicationContext(), R.drawable.bg_dropdown2_touchdown));
+                }
+                else{
+                    logoutButton.setBackground(AppCompatResources.getDrawable(getApplicationContext(), R.drawable.bg_dropdown2));
+                }
+
+                return false;
             }
         });
 
