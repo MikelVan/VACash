@@ -272,7 +272,7 @@ public class HomePage extends AppCompatActivity {
                 textCarousel.setCurrentItem(nextPosition);
 
                 changeCharacter(nextPosition);
-                changeCharacter(nextPosition);
+                changeActiveBullet(nextPosition);
 
                 timer.cancel();
                 timer = new Timer();
