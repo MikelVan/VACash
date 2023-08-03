@@ -33,7 +33,7 @@ public class DetailPage extends AppCompatActivity {
     private Item item;
     private Integer itemQty, gameLogo;
     private String gameName, gameDeveloper, gameCategory;
-    private TextView userBalance, itemNameView, gameNameView, itemPriceView, itemQuantityView, errorTitleView, errorMessageView, confirmMessageView;
+    private TextView userBalance, itemNameView, gameNameView, itemPriceView, itemQuantityView, errorTitleView, errorMessageView, confirmMessageView, gameDescriptionView;
     private EditText userNameField, emailField;
     private RelativeLayout action_bar, dropdownMenu, ppHighlight, dark_overlay;
     private ConstraintLayout errorPopUp, confirmPopUp;
@@ -304,6 +304,9 @@ public class DetailPage extends AppCompatActivity {
                 startActivity(profileActivity);
             }
         });
+
+        gameDescriptionView = findViewById(R.id.itemDescriptionLabel);
+        gameDescriptionView.setText(previousPage.getStringExtra("gameDescription 1"));
     }
 
     private void disableButtons(){
